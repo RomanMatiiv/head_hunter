@@ -1,28 +1,34 @@
 from django.db import models
-
-# Create your models here.
+from django.db.models import CharField
+from django.db.models import TextField
+from django.db.models import IntegerField
+from django.db.models import FloatField
+from django.db.models import DateTimeField
+from django.db.models import ManyToManyField
+from django.db.models import ForeignKey
+from django.db.models import URLField
 
 
 class Company(models.Model):
-    name = models.CharField(max_length=255)
-    location = models.CharField(max_length=255)  # TODO сделать полем с выбором, возможно из другой модели
-    logo = models.URLField(default='https://place-hold.it/100x60')
-    description = models.TextField()
-    employee_count = models.IntegerField()
+    name = CharField(max_length=255)
+    location = CharField(max_length=255)  # TODO сделать полем с выбором, возможно из другой модели
+    logo = URLField(default='https://place-hold.it/100x60')
+    description = TextField()
+    employee_count = IntegerField()
 
 
 class Specialty(models.Model):
-    code = models.CharField(max_length=100)  # TODO сделать полем с выбором, возможно из другой модели
-    title = models.CharField(max_length=100)
-    picture = models.URLField(default='https://place-hold.it/100x60')
+    code = CharField(max_length=100)  # TODO сделать полем с выбором, возможно из другой модели
+    title = CharField(max_length=100)
+    picture = URLField(default='https://place-hold.it/100x60')
 
 
 class Vacancy(models.Model):
-    title = models.CharField(max_length=100)
-    specialty = models.ForeignKey(Specialty, related_name="vacancies", on_delete=models.PROTECT)
-    company = models.ManyToManyField(Company, related_name="vacancies")
-    skills = models.CharField(max_length=100)  # TODO попробовать ArrayField
-    description = models.TextField()
-    salary_min = models.FloatField()
-    salary_max = models.FloatField()
-    published_at = models.DateTimeField()
+    title = CharField(max_length=100)
+    specialty = ForeignKey(Specialty, related_name="vacancies", on_delete=models.PROTECT)
+    company = ManyToManyField(Company, related_name="vacancies")
+    skills = CharField(max_length=100)  # TODO попробовать ArrayField
+    description = TextField()
+    salary_min = FloatField()
+    salary_max = FloatField()
+    published_at = DateTimeField()
