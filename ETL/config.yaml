@@ -1,0 +1,44 @@
+
+company:
+  table_matching:
+    mock: companies
+    sqlite: junior_hunter_company
+  fields_matching:
+    id: id
+    name: title
+    location: location
+    logo: logo
+    description: description
+    employee_count: employee_count
+
+specialty:
+  table_matching:
+    mock: specialties
+    sqlite: junior_hunter_specialty
+  fields_matching:
+    code: code
+    title: title
+
+vacancy:
+  table_matching:
+    mock: jobs
+    sqlite: junior_hunter_vacancy
+  fields_matching:
+    id: id
+    title: title
+    skills: skills
+    description: description
+    salary_min: salary_from
+    salary_max: salary_to
+    published_at: posted
+    specialty_id: specialty
+
+
+
+vacancy_company:
+  table_matching:
+    mock: jobs
+    sqlite: junior_hunter_vacancy_company
+  fields_matching:
+    vacancy_id: id
+    company_id: company

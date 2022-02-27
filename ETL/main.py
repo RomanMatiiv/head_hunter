@@ -8,7 +8,8 @@ import yaml
 
 import data as mock_data
 
-logger = logging.getLogger()
+
+logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 
@@ -88,7 +89,7 @@ class SQLiteETL:
             sqlite_conn.commit()
         except Exception as e:
             sqlite_conn.close()
-            raise Exception(e)
+            raise e
 
 
 def migration_config(path_to_conf: str):
@@ -100,6 +101,7 @@ def migration_config(path_to_conf: str):
 
 if __name__ == '__main__':
 
+    # TODO добавить контекстынй менеджер
     con = sqlite3.connect('/Users/matiiv/projects/head_hunter/db.sqlite3')
     config = migration_config('config.yaml')
 
@@ -124,4 +126,6 @@ if __name__ == '__main__':
 
         logging.debug('load')
         etl.load(sqlite_conn=con, data_to_send=transformed_data)
+        logger.info('migration done!\n')
 
+    con.close()
