@@ -1,5 +1,6 @@
 import logging
 import sqlite3
+from contextlib import closing
 from typing import List, Any
 from typing import Dict
 from typing import Tuple
@@ -100,32 +101,29 @@ def migration_config(path_to_conf: str):
 
 
 if __name__ == '__main__':
+    logger.info("open connection")
+    with closing(sqlite3.connect('/Users/matiiv/projects/head_hunter/db.sqlite3')) as con:
+        config = migration_config('config.yaml')
 
-    # TODO добавить контекстынй менеджер
-    con = sqlite3.connect('/Users/matiiv/projects/head_hunter/db.sqlite3')
-    config = migration_config('config.yaml')
+        for table in config.keys():
+            logger.info(f"start migration: {table}")
 
-    for table in config.keys():
-        logger.info(f"start migration: {table}")
+            logger.debug('read params from config')
+            table_conf = config[table]
+            sqlite_table_name = table_conf['table_matching']['sqlite']
+            mock_data_name = table_conf['table_matching']['mock']
+            fields_matching = table_conf['fields_matching']
 
-        logger.debug('read params from config')
-        table_conf = config[table]
-        sqlite_table_name = table_conf['table_matching']['sqlite']
-        mock_data_name = table_conf['table_matching']['mock']
-        fields_matching = table_conf['fields_matching']
+            etl = SQLiteETL(mock_table_name=mock_data_name,
+                            sqlite_table_name=sqlite_table_name,
+                            fields_matching=fields_matching,
+                            )
+            logger.debug('extract')
+            data = etl.extract(path_to_data='data.py')
 
-        etl = SQLiteETL(mock_table_name=mock_data_name,
-                        sqlite_table_name=sqlite_table_name,
-                        fields_matching=fields_matching,
-                        )
-        logger.debug('extract')
-        data = etl.extract(path_to_data='data.py')
+            logging.debug('transform')
+            transformed_data = etl.transform(extracted_data=data)
 
-        logging.debug('transform')
-        transformed_data = etl.transform(extracted_data=data)
-
-        logging.debug('load')
-        etl.load(sqlite_conn=con, data_to_send=transformed_data)
-        logger.info('migration done!\n')
-
-    con.close()
+            logging.debug('load')
+            etl.load(sqlite_conn=con, data_to_send=transformed_data)
+            logger.info('migration done!\n')
