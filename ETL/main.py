@@ -126,4 +126,5 @@ if __name__ == '__main__':
 
             logging.debug('load')
             etl.load(sqlite_conn=con, data_to_send=transformed_data)
+
             logger.info('migration done!\n')
