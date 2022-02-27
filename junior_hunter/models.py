@@ -18,7 +18,7 @@ class Company(models.Model):
 
 
 class Specialty(models.Model):
-    code = CharField(max_length=100, primary_key=True, unique=True)  # TODO сделать полем с выбором, возможно из другой модели
+    code = CharField(max_length=100, primary_key=True)  # TODO сделать полем с выбором, возможно из другой модели
     title = CharField(max_length=100)
     picture = URLField(default='https://place-hold.it/100x60')
 

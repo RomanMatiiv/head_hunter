@@ -33,8 +33,6 @@ vacancy:
     published_at: posted
     specialty_id: specialty
 
-
-
 vacancy_company:
   table_matching:
     mock: jobs
