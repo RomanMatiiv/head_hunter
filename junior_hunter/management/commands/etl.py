@@ -99,7 +99,7 @@ class SQLiteETL:
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = 'Migrate data from mock python file, to SQLite DB'
 
     def migration_config(self, path_to_conf: str):
         with open(path_to_conf, 'r') as f:
