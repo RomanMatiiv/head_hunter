@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'junior_hunter'
+    'django_extensions',
+
+    'junior_hunter',
 ]
 
 MIDDLEWARE = [
