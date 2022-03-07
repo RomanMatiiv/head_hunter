@@ -60,7 +60,7 @@ class Command(BaseCommand):
             logger.info('elt vacancy skipped')
         else:
             logger.info('etl vacancy start')
-            self.vacancy_elt(data=mock_data.jobs)
+            self.vacancy_etl(data=mock_data.jobs)
 
     @staticmethod
     def company_etl(data: List[Dict]) -> None:
@@ -103,12 +103,10 @@ class Command(BaseCommand):
         return None
 
     @staticmethod
-    def vacancy_elt(data: List[Dict]) -> None:
+    def vacancy_etl(data: List[Dict]) -> None:
         for job_mocked in data:
             pk = job_mocked['id']
             title = job_mocked['title']
-            # specialty = job_mocked['specialty']
-            # company = job_mocked['company']
             skills = job_mocked['skills']
             description = job_mocked['description']
             salary_min = job_mocked['salary_from']
@@ -123,9 +121,6 @@ class Command(BaseCommand):
             speciality_pk = job_mocked['specialty']
             speciality = Specialty.objects.get(code=speciality_pk)
 
-            company_pk = int(job_mocked['company'])
-            company = Company.objects.get(id=company_pk)
-
             vacancy = Vacancy(id=pk,
                               title=title,
                               specialty=speciality,
@@ -137,7 +132,8 @@ class Command(BaseCommand):
                               )
             vacancy.save()
 
+            company_pk = int(job_mocked['company'])
+            company = Company.objects.get(id=company_pk)
             vacancy.company.add(company)
             vacancy.save()
-
         return None
