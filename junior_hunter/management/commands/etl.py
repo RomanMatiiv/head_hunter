@@ -104,6 +104,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def vacancy_etl(data: List[Dict]) -> None:
+        vacancy_insert = []
+        throughout_vacancy_company_insert = []
         for job_mocked in data:
             pk = job_mocked['id']
             title = job_mocked['title']
@@ -130,10 +132,18 @@ class Command(BaseCommand):
                               salary_max=salary_max,
                               published_at=published_at,
                               )
-            vacancy.save()
+            vacancy_insert.append(vacancy)
 
             company_pk = int(job_mocked['company'])
             company = Company.objects.get(id=company_pk)
-            vacancy.company.add(company)
-            vacancy.save()
+
+            throughout_vacancy_company = Vacancy.company.through(
+                company_id=company.id,
+                vacancy_id=vacancy.id
+            )
+            throughout_vacancy_company_insert.append(throughout_vacancy_company)
+
+        Vacancy.objects.bulk_create(vacancy_insert)
+        Vacancy.company.through.objects.bulk_create(throughout_vacancy_company_insert)
+
         return None
