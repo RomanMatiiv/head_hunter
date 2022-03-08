@@ -1,0 +1,31 @@
+version: 1
+
+disable_existing_loggers: False
+
+formatters:
+  console:
+    format: "%(asctime)s - [%(name)s] - %(levelname)s - %(message)s"
+    datefmt: "%H:%M:%S"
+
+filters:
+  require_debug_true:
+    '()': django.utils.log.RequireDebugTrue
+
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: console
+    filters: [require_debug_true]
+
+
+loggers:
+  django.db.backends:
+    level: DEBUG
+    handlers: []
+    propagate: no
+
+root:
+  level: DEBUG
+  handlers: [console]
