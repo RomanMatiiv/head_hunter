@@ -133,7 +133,7 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-path_to_logger_config = os.path.join(BASE_DIR, 'config', 'logger.yaml')
+path_to_logger_config = os.path.join(BASE_DIR, 'logger.yaml')
 with open(path_to_logger_config) as f:
     logger_config = yaml.safe_load(f)
 LOGGING = logger_config
