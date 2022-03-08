@@ -1,3 +1,6 @@
+"""
+Перегружает данные из файла в БД (SQLite)
+"""
 import logging
 from datetime import datetime
 from typing import Dict, List
@@ -104,8 +107,8 @@ class Command(BaseCommand):
 
     @staticmethod
     def vacancy_etl(data: List[Dict]) -> None:
-        vacancy_insert = []
-        throughout_vacancy_company_insert = []
+        vacancy_to_save = []
+        throughout_vacancy_company_to_save = []
         for job_mocked in data:
             pk = job_mocked['id']
             title = job_mocked['title']
@@ -132,7 +135,7 @@ class Command(BaseCommand):
                               salary_max=salary_max,
                               published_at=published_at,
                               )
-            vacancy_insert.append(vacancy)
+            vacancy_to_save.append(vacancy)
 
             company_pk = int(job_mocked['company'])
             company = Company.objects.get(id=company_pk)
@@ -141,9 +144,9 @@ class Command(BaseCommand):
                 company_id=company.id,
                 vacancy_id=vacancy.id
             )
-            throughout_vacancy_company_insert.append(throughout_vacancy_company)
+            throughout_vacancy_company_to_save.append(throughout_vacancy_company)
 
-        Vacancy.objects.bulk_create(vacancy_insert)
-        Vacancy.company.through.objects.bulk_create(throughout_vacancy_company_insert)
+        Vacancy.objects.bulk_create(vacancy_to_save)
+        Vacancy.company.through.objects.bulk_create(throughout_vacancy_company_to_save)
 
         return None
