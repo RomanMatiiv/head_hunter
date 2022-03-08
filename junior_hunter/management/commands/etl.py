@@ -53,14 +53,14 @@ class Command(BaseCommand):
 
         # specialty
         if options['skip_specialty']:
-            logger.info('elt specialty skipped')
+            logger.info('etl specialty skipped')
         else:
-            logger.info('elt specialty start')
+            logger.info('etl specialty start')
             self.specialty_etl(data=mock_data.specialties)
 
         # vacancy
         if options['skip_vacancy']:
-            logger.info('elt vacancy skipped')
+            logger.info('etl vacancy skipped')
         else:
             logger.info('etl vacancy start')
             self.vacancy_etl(data=mock_data.jobs)
