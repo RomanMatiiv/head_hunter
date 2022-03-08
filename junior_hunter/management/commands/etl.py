@@ -69,6 +69,7 @@ class Command(BaseCommand):
     def company_etl(data: List[Dict]) -> None:
         company_to_save = []
         for company_mocked in data:
+            # extract
             pk = company_mocked['id']
             name = company_mocked['title']
             location = company_mocked['location']
@@ -76,6 +77,7 @@ class Command(BaseCommand):
             description = company_mocked['description']
             employee_count = company_mocked['employee_count']
 
+            # transform
             cur_company = Company(id=pk,
                                   name=name,
                                   location=location,
@@ -85,6 +87,7 @@ class Command(BaseCommand):
                                   )
             company_to_save.append(cur_company)
 
+        # load
         Company.objects.bulk_create(company_to_save)
 
         return None
@@ -93,14 +96,17 @@ class Command(BaseCommand):
     def specialty_etl(data: List[Dict]) -> None:
         specialty_to_save = []
         for specialty_mocked in data:
+            # extract
             code = specialty_mocked['code']
             title = specialty_mocked['title']
 
+            # transform
             cur_speciality = Specialty(code=code,
                                        title=title,
                                        )
             specialty_to_save.append(cur_speciality)
 
+        # load
         Specialty.objects.bulk_create(specialty_to_save)
 
         return None
@@ -110,6 +116,7 @@ class Command(BaseCommand):
         vacancy_to_save = []
         throughout_vacancy_company_to_save = []
         for job_mocked in data:
+            # extract
             pk = job_mocked['id']
             title = job_mocked['title']
             skills = job_mocked['skills']
@@ -126,6 +133,10 @@ class Command(BaseCommand):
             speciality_pk = job_mocked['specialty']
             speciality = Specialty.objects.get(code=speciality_pk)
 
+            company_pk = int(job_mocked['company'])
+            company = Company.objects.get(id=company_pk)
+
+            # transform
             vacancy = Vacancy(id=pk,
                               title=title,
                               specialty=speciality,
@@ -137,15 +148,13 @@ class Command(BaseCommand):
                               )
             vacancy_to_save.append(vacancy)
 
-            company_pk = int(job_mocked['company'])
-            company = Company.objects.get(id=company_pk)
-
             throughout_vacancy_company = Vacancy.company.through(
                 company_id=company.id,
                 vacancy_id=vacancy.id
             )
             throughout_vacancy_company_to_save.append(throughout_vacancy_company)
 
+        # load
         Vacancy.objects.bulk_create(vacancy_to_save)
         Vacancy.company.through.objects.bulk_create(throughout_vacancy_company_to_save)
 
