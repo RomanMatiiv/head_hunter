@@ -20,6 +20,13 @@ class MainPageView(TemplateView):
 class VacancyView(TemplateView):
     template_name = 'junior_hunter/vacancy.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vacancy_id = kwargs['vacancy_id']
+        vacancy = get_object_or_404(Vacancy, id=vacancy_id)
+        context['vacancy'] = vacancy
+        return context
+
 
 # – Вакансии по специализации /vacancies/cat/frontend
 class CategoryVacancyView(TemplateView):
