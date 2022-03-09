@@ -35,7 +35,7 @@
                         <img class="mx-auto d-block" src="{{ cur_specialty.picture }}" width="80" height="80" alt="https://place-hold.it/100x80">
                         <div class="card-body">
                             <p class="card-text mb-2">{{ cur_specialty.title }}</p>
-                            <p class="card-text"><a href="#">{{ cur_specialty.count_vacancy }} вакансий </a></p> {# TODO добавить templatetag для окончаний #} {# TODO поменять href #}
+                            <p class="card-text"><a href="{% url 'category_vacancies' cur_specialty.code %}">{{ cur_specialty.count_vacancy }} вакансий </a></p> {# TODO добавить templatetag для окончаний #} {# TODO поменять href #}
                         </div>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                         <img class="mx-auto d-block mw-100" src="{{ cur_company.logo }}" alt="https://place-hold.it/100x80">
                       </a>
                       <div class="card-body">
-                        <p class="card-text"><a href="#">{{ cur_company.count_vacancy }} вакансий</a></p> {# TODO добавить templatetag для окончаний #} {# TODO поменять href #}
+                        <p class="card-text"><a href="{% url 'company' cur_company.id %}">{{ cur_company.count_vacancy }} вакансий</a></p> {# TODO добавить templatetag для окончаний #} {# TODO поменять href #}
                       </div>
                     </div>
                 </div>
