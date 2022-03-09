@@ -2,11 +2,13 @@ from django.db.models import Count
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
 
-from junior_hunter.models import Specialty, Company, Vacancy
+from junior_hunter.models import Specialty
+from junior_hunter.models import Company
+from junior_hunter.models import Vacancy
 
 
-# – Главная  /
 class MainPageView(TemplateView):
+    """ Главная  / """
     template_name = 'junior_hunter/index.html'
 
     def get_context_data(self, **kwargs):
@@ -16,8 +18,8 @@ class MainPageView(TemplateView):
         return context
 
 
-# – Одна вакансия /vacancies/22
 class VacancyView(TemplateView):
+    """ Одна вакансия /vacancies/22 """
     template_name = 'junior_hunter/vacancy.html'
 
     def get_context_data(self, **kwargs):
@@ -28,8 +30,8 @@ class VacancyView(TemplateView):
         return context
 
 
-# – Вакансии по специализации /vacancies/cat/frontend
 class CategoryVacancyView(TemplateView):
+    """ Вакансии по специализации /vacancies/cat/frontend """
     template_name = 'junior_hunter/vacancies.html'
 
     def get_context_data(self, **kwargs):
@@ -48,6 +50,7 @@ class CategoryVacancyView(TemplateView):
 
 # – Все вакансии списком  /vacancies
 class AllVacanciesView(TemplateView):
+    """ Все вакансии списком  /vacancies """
     template_name = 'junior_hunter/vacancies.html'
 
     def get_context_data(self, **kwargs):
@@ -60,8 +63,8 @@ class AllVacanciesView(TemplateView):
         return context
 
 
-# – Карточка компании  /companies/345
 class CompanyView(TemplateView):
+    """Карточка компании  /companies/345"""
     template_name = 'junior_hunter/company.html'
 
     def get_context_data(self, **kwargs):
