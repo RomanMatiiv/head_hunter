@@ -21,6 +21,10 @@ from junior_hunter.views import VacancyView
 from junior_hunter.views import CategoryVacancyView
 from junior_hunter.views import AllVacanciesView
 from junior_hunter.views import CompanyView
+from config.error_handlers import custom_handler400
+from config.error_handlers import custom_handler403
+from config.error_handlers import custom_handler404
+from config.error_handlers import custom_handler500
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,3 +35,8 @@ urlpatterns = [
     path('companies/<int:company_id>', CompanyView.as_view(), name='company'),
 
 ]
+
+handler400 = custom_handler400
+handler403 = custom_handler403
+handler404 = custom_handler404
+handler500 = custom_handler500
