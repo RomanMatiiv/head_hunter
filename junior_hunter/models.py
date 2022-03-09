@@ -26,7 +26,7 @@ class Specialty(models.Model):
 class Vacancy(models.Model):
     title = CharField(max_length=100)
     specialty = ForeignKey(Specialty, related_name="vacancies", on_delete=models.PROTECT)
-    company = ManyToManyField(Company, related_name="vacancies")
+    company = ForeignKey(Company, related_name="vacancies", on_delete=models.PROTECT)
     skills = CharField(max_length=100)
     description = TextField()
     salary_min = FloatField()

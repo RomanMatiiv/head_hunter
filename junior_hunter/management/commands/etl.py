@@ -114,7 +114,6 @@ class Command(BaseCommand):
     @staticmethod
     def vacancy_etl(data: List[Dict]) -> None:
         vacancy_to_save = []
-        throughout_vacancy_company_to_save = []
         for job_mocked in data:
             # extract
             pk = job_mocked['id']
@@ -140,6 +139,7 @@ class Command(BaseCommand):
             vacancy = Vacancy(id=pk,
                               title=title,
                               specialty=speciality,
+                              company=company,
                               skills=skills,
                               description=description,
                               salary_min=salary_min,
@@ -148,14 +148,7 @@ class Command(BaseCommand):
                               )
             vacancy_to_save.append(vacancy)
 
-            throughout_vacancy_company = Vacancy.company.through(
-                company_id=company.id,
-                vacancy_id=vacancy.id
-            )
-            throughout_vacancy_company_to_save.append(throughout_vacancy_company)
-
         # load
         Vacancy.objects.bulk_create(vacancy_to_save)
-        Vacancy.company.through.objects.bulk_create(throughout_vacancy_company_to_save)
 
         return None
