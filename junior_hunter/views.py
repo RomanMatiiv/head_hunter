@@ -56,3 +56,23 @@ class AllVacanciesView(TemplateView):
 # – Карточка компании  /companies/345
 class CompanyView(TemplateView):
     template_name = 'junior_hunter/company.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        company_id = kwargs['company_id']
+        company = get_object_or_404(Company, id=company_id)
+        context['company'] = company
+
+        filtered_vacancies = Vacancy.objects.filter(company__id=company_id)
+        context['vacancies'] = filtered_vacancies
+        context['vacancies_count'] = filtered_vacancies.count()
+
+        return context
+
+
+# TODO повторяющиеся части, которые нужно вынести в общий шаблон
+    # * все ваканси
+    # * вакансии по специализации
+    # * вакансии компании
+    # везде есть список вакансий различается лишь шапка поэтому нужно в общий шаблон вынести
