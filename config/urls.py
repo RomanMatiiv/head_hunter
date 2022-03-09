@@ -24,10 +24,10 @@ from junior_hunter.views import CompanyView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MainPageView.as_view()),
-    path('vacancies/', AllVacanciesView.as_view()),
-    path('vacancies/<int:vacancy_id>', VacancyView.as_view()),
-    path('vacancies/cat/<str:category>', CategoryVacancyView.as_view()),
-    path('companies/<int:company_id>', CompanyView.as_view()),
+    path('', MainPageView.as_view(), name='main'),
+    path('vacancies/', AllVacanciesView.as_view(), name='all_vacancies'),
+    path('vacancies/<int:vacancy_id>', VacancyView.as_view(), name='vacancy'),
+    path('vacancies/cat/<str:category>', CategoryVacancyView.as_view(), name='category_vacancies'),
+    path('companies/<int:company_id>', CompanyView.as_view(), name='company'),
 
 ]
