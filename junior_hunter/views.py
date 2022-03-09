@@ -1,10 +1,18 @@
-from django.shortcuts import render
+from django.db.models import Count
 from django.views.generic import TemplateView
+
+from junior_hunter.models import Specialty, Company
 
 
 # – Главная  /
 class MainPageView(TemplateView):
     template_name = 'junior_hunter/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['specialties'] = Specialty.objects.annotate(count_vacancy=Count('vacancies__id'))
+        context['companies'] = Company.objects.annotate(count_vacancy=Count('vacancies__id'))
+        return context
 
 
 # – Одна вакансия /vacancies/22
