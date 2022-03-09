@@ -1,7 +1,8 @@
 from django.db.models import Count
 from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404
 
-from junior_hunter.models import Specialty, Company
+from junior_hunter.models import Specialty, Company, Vacancy
 
 
 # – Главная  /
@@ -24,11 +25,32 @@ class VacancyView(TemplateView):
 class CategoryVacancyView(TemplateView):
     template_name = 'junior_hunter/vacancies.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        specialty_code = kwargs['category']
+        specialty = get_object_or_404(Specialty, code=specialty_code)
+        context['specialty'] = specialty
+
+        filtered_vacancies = Vacancy.objects.filter(specialty__code=specialty_code)
+        context['vacancies'] = filtered_vacancies
+        context['vacancies_count'] = filtered_vacancies.count()
+
+        return context
+
 
 # – Все вакансии списком  /vacancies
 class AllVacanciesView(TemplateView):
-    # TODO переделать шаблон тк этот похож на вакансии по категориям
     template_name = 'junior_hunter/vacancies.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        vacancies = Vacancy.objects.all()
+        context['vacancies'] = vacancies
+        context['vacancies_count'] = vacancies.count()
+
+        return context
 
 
 # – Карточка компании  /companies/345
