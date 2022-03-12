@@ -35,11 +35,12 @@ def rupluralize(value, forms):
 def readable_price(number) -> str:
     """
     Разделяет тысячи с помощью пробелов
+    {{someval|readable_price}}
 
     Args:
         number:
 
-    Returns:
+    Returns: str
 
     Examples:
         68 -> 68
