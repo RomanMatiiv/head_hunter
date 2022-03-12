@@ -1,5 +1,7 @@
 {% extends 'junior_hunter/base.html' %}
 
+{% load filters %}
+
 {% block main %}
   <main class="container mt-3 pb-5">
     <div class="row mt-5">
@@ -13,10 +15,10 @@
           <a href="#"><img src="https://place-hold.it/130x80" width="130" height="80" alt=""></a>
           <div class="d-flex align-items-baseline align-content-baseline">
             <h1 class="h2 mt-4 font-weight-bold" >{{ vacancy.specialty.title }}</h1>
-            <p class="m-0 pl-3">{{ vacancy.salary_min }} – {{ vacancy.salary_max }} Р</p> {# TODO tamplatetag #}
+            <p class="m-0 pl-3">{{ vacancy.salary_min|readable_price }} – {{ vacancy.salary_max|readable_price }} руб.</p>
           </div>
           <p class="mt-2">{{ vacancy.specialty.title }} • {{ vacancy.skills }}</p> {# TODO tamplatetag #}
-          <p class="text-muted mb-4">{{ vacancy.company.name }} ({{ vacancy.company.employee_count }} человек), {{ vacancy.company.location }} или удаленно</p>
+          <p class="text-muted mb-4">{{ vacancy.company.name }} ({{ vacancy.company.employee_count }} {{ vacancy.company.employee_count|rupluralize:"человек,человека,человек" }}), {{ vacancy.company.location }} или удаленно</p>
           <div style="line-height: 1.8;">
             {{ vacancy.description|safe }}
           </div>

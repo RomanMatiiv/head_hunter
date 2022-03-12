@@ -9,7 +9,10 @@ register = template.Library()
 def rupluralize(value, forms):
     """
     Подбирает окончание существительному после числа
-    {{someval|rupluralize:"товар,товара,товаров"}}
+    {{someval|rupluralize:"<one>,<two>,<many>"}}
+
+    Пример:
+        {{someval|rupluralize:"товар,товара,товаров"}}
 
     https://gist.github.com/dpetukhov/cb82a0f4d04f7373293bdf2f491863c8
     """
