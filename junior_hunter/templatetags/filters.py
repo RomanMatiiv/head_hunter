@@ -1,3 +1,5 @@
+from typing import List
+
 from django import template
 from django.template.defaultfilters import stringfilter
 
@@ -53,3 +55,21 @@ def readable_price(number) -> str:
 
     """
     return '{:,}'.format(number).replace(',', ' ')
+
+
+@register.filter
+def split(value: str, separator: str) -> List[str]:
+    """
+    Разделяет входную строку по сепаратору
+    {{someval|split:"<separator>"}}
+
+    Args:
+        value: строка
+        separator: разделитель в данной строке
+
+    Returns: массив строк
+
+    Examples:
+        "Swift, CoreData, Git" -> ["Swift", "CoreData", "Git"]
+    """
+    return value.split(separator)
