@@ -1,6 +1,3 @@
-import datetime
-import locale
-
 from django import template
 from django.template.defaultfilters import stringfilter
 
