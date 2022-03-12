@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import CharField
 from django.db.models import DateTimeField
-from django.db.models import FloatField
 from django.db.models import ForeignKey
 from django.db.models import IntegerField
 from django.db.models import TextField
@@ -37,6 +36,6 @@ class Vacancy(models.Model):
     company = ForeignKey(Company, related_name="vacancies", on_delete=models.PROTECT)
     skills = CharField(max_length=100)
     description = TextField()
-    salary_min = FloatField()
-    salary_max = FloatField()
+    salary_min = IntegerField()
+    salary_max = IntegerField()
     published_at = DateTimeField()
