@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'junior_hunter',
+    'junior_hunter.templatetags',
 ]
 
 MIDDLEWARE = [
