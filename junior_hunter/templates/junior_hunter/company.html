@@ -12,10 +12,10 @@
         <img src="{{ company.logo }}" width="130" height="80" alt="https://place-hold.it/130x80">
       </div>
       <h1 class="h1 text-center mx-auto mt-0 pt-1" style="font-size: 70px;"><strong>{{ company.name }}</strong></h1>
-      <p class="text-center pt-1">Компания, {{ company.location }}, {{ vacancies_count }} {{ vacancies_count|rupluralize:"вакансия,вакансии,вакансий" }} </p>
+      <p class="text-center pt-1">Компания, {{ company.location }}, {{ object_list|length }} {{ object_list|length|rupluralize:"вакансия,вакансии,вакансий" }} </p>
       <div class="row mt-5">
         <div class="col-12 col-lg-8 offset-lg-2 m-auto">
-          {% for cur_vacancy in vacancies %}
+          {% for cur_vacancy in object_list %}
               {% include 'junior_hunter/one_vacancy_card.html' %}
           {% endfor %}
         </div>

@@ -1,5 +1,7 @@
 from django.db.models import Count
 from django.views.generic import TemplateView
+from django.views.generic import ListView
+from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404
 
 from junior_hunter.models import Specialty
@@ -18,8 +20,9 @@ class MainPageView(TemplateView):
         return context
 
 
+# TODO Переделать на DetailView
 class VacancyView(TemplateView):
-    """ Одна вакансия /vacancies/22 """
+    """ Одна вакансия"""
     template_name = 'junior_hunter/vacancy.html'
 
     def get_context_data(self, **kwargs):
@@ -30,59 +33,56 @@ class VacancyView(TemplateView):
         return context
 
 
-class CategoryVacancyView(TemplateView):
-    """ Вакансии по специализации /vacancies/cat/frontend """
+class AllVacanciesView(ListView):
     template_name = 'junior_hunter/vacancies.html'
+    model = Vacancy
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
 
+class CategoryVacancyView(ListView):
+    """ Вакансии по специализации """
+    template_name = 'junior_hunter/vacancies.html'
+    model = Vacancy
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.specialty = None
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
         specialty_code = kwargs['category']
-        specialty = get_object_or_404(Specialty, code=specialty_code)
-        context['specialty'] = specialty
-
-        filtered_vacancies = Vacancy.objects.filter(specialty__code=specialty_code)
-        context['vacancies'] = filtered_vacancies
-        context['vacancies_count'] = filtered_vacancies.count()
-
-        return context
-
-
-# – Все вакансии списком  /vacancies
-class AllVacanciesView(TemplateView):
-    """ Все вакансии списком  /vacancies """
-    template_name = 'junior_hunter/vacancies.html'
+        self.specialty = get_object_or_404(Specialty, code=specialty_code)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        vacancies = Vacancy.objects.all()
-        context['vacancies'] = vacancies
-        context['vacancies_count'] = vacancies.count()
-
+        context['specialty'] = self.specialty
         return context
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filtered_queryset = queryset.filter(specialty__code=self.specialty.code)
+        return filtered_queryset
 
-class CompanyView(TemplateView):
-    """Карточка компании  /companies/345"""
+
+class CompanyView(ListView):
+    """Карточка компании"""
     template_name = 'junior_hunter/company.html'
+    model = Vacancy
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.company = None
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        company_id = kwargs['company_id']
+        self.company = get_object_or_404(Company, id=company_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        company_id = kwargs['company_id']
-        company = get_object_or_404(Company, id=company_id)
-        context['company'] = company
-
-        filtered_vacancies = Vacancy.objects.filter(company__id=company_id)
-        context['vacancies'] = filtered_vacancies
-        context['vacancies_count'] = filtered_vacancies.count()
-
+        context['company'] = self.company
         return context
 
-
-# TODO повторяющиеся части, которые нужно вынести в общий шаблон
-    # * все ваканси
-    # * вакансии по специализации
-    # * вакансии компании
-    # везде есть список вакансий различается лишь шапка поэтому нужно в общий шаблон вынести
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filtered_queryset = queryset.filter(company__id=self.company.id)
+        return filtered_queryset

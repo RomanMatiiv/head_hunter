@@ -11,12 +11,12 @@
       {% endif %}
 
       <!-- кол-во вакансий -->
-      <p class="text-center pt-1">{{ vacancies_count }} {{ vacancies_count|rupluralize:"вакансия,вакансии,вакансий" }} </p>
+      <p class="text-center pt-1">{{ object_list|length }} {{ object_list|length|rupluralize:"вакансия,вакансии,вакансий" }} </p>
 
       <!-- Вакансии -->
       <div class="row mt-5">
         <div class="col-12 col-lg-8 offset-lg-2 m-auto">
-          {% for cur_vacancy in vacancies %}
+          {% for cur_vacancy in object_list %}
               {% include 'junior_hunter/one_vacancy_card.html' %}
           {% endfor %}
         </div>
