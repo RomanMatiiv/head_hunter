@@ -30,7 +30,7 @@ handlers:
 loggers:
   django.db.backends:
     level: DEBUG
-    handlers: [console_sql]
+    handlers: []
     propagate: no
 
 root:
