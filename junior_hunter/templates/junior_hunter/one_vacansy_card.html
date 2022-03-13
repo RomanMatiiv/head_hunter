@@ -1,0 +1,17 @@
+{% load filters %}
+
+<div class="card mb-4">
+    <div class="card-body px-4">
+      <div class="row">
+        <div class="col-12 col-md-8 col-lg-9">
+          <a href="{% url 'vacancy' cur_vacancy.id%}"><h2 class="h2 pb-2">{{ cur_vacancy.title }}</h2> </a>
+          <p class="mb-2">{{ cur_vacancy.specialty.title }} • {{ cur_vacancy.skills|split:','|join:'•'}}</p>
+          <p>От {{ cur_vacancy.salary_min|readable_price }} до {{ cur_vacancy.salary_max|readable_price }} руб.</p>
+          <p class="text-muted pt-1">{{ cur_vacancy.published_at|date:'j E' }}</p>
+        </div>
+        <div class="col-12 col-md-4 col-lg-3 d-flex align-items-end">
+          <a href="#"><img src="https://place-hold.it/130x80" width="130" height="80" alt=""></a>
+        </div>
+      </div>
+    </div>
+</div>
