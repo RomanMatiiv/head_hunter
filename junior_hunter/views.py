@@ -20,17 +20,12 @@ class MainPageView(TemplateView):
         return context
 
 
-# TODO Переделать на DetailView
-class VacancyView(TemplateView):
+class VacancyView(DetailView):
     """ Одна вакансия"""
     template_name = 'junior_hunter/vacancy.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        vacancy_id = kwargs['vacancy_id']
-        vacancy = get_object_or_404(Vacancy, id=vacancy_id)
-        context['vacancy'] = vacancy
-        return context
+    model = Vacancy
+    slug_field = 'id'
+    slug_url_kwarg = 'vacancy_id'
 
 
 class AllVacanciesView(ListView):

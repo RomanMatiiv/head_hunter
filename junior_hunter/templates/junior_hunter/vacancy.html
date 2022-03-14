@@ -14,13 +14,13 @@
         <section class="pl-3">
           <a href="#"><img src="https://place-hold.it/130x80" width="130" height="80" alt=""></a>
           <div class="d-flex align-items-baseline align-content-baseline">
-            <h1 class="h2 mt-4 font-weight-bold" >{{ vacancy.specialty.title }}</h1>
-            <p class="m-0 pl-3">{{ vacancy.salary_min|readable_price }} – {{ vacancy.salary_max|readable_price }} руб.</p>
+            <h1 class="h2 mt-4 font-weight-bold" >{{ object.specialty.title }}</h1>
+            <p class="m-0 pl-3">{{ object.salary_min|readable_price }} – {{ object.salary_max|readable_price }} руб.</p>
           </div>
-          <p class="mt-2">{{ vacancy.specialty.title }} • {{ vacancy.skills|split:','|join:'•' }}</p>
-          <p class="text-muted mb-4">{{ vacancy.company.name }} ({{ vacancy.company.employee_count }} {{ vacancy.company.employee_count|rupluralize:"человек,человека,человек" }}), {{ vacancy.company.location }} или удаленно</p>
+          <p class="mt-2">{{ object.specialty.title }} • {{ object.skills|split:','|join:'•' }}</p>
+          <p class="text-muted mb-4">{{ object.company.name }} ({{ object.company.employee_count }} {{ object.company.employee_count|rupluralize:"человек,человека,человек" }}), {{ object.company.location }} или удаленно</p>
           <div style="line-height: 1.8;">
-            {{ vacancy.description|safe }}
+            {{ object.description|safe }}
           </div>
           <form action="/echo" class="card mt-4 mb-3" enctype="multipart/form-data">
             <div class="card-body mx-3">
