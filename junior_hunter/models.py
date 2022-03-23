@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import CharField
+from django.db.models import OneToOneField
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
 from django.db.models import IntegerField
@@ -16,6 +18,7 @@ class Company(models.Model):
     logo = URLField(default='https://place-hold.it/100x60')
     description = TextField()
     employee_count = IntegerField()
+    owner = OneToOneField(User, null=True, on_delete=models.PROTECT)
 
 
 class Specialty(models.Model):
