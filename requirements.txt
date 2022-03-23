@@ -37,6 +37,7 @@ parso==0.8.3
 pep8-naming==0.12.1
 pexpect==4.8.0
 pickleshare==0.7.5
+Pillow==9.0.1
 prompt-toolkit==3.0.28
 ptyprocess==0.7.0
 pure-eval==0.2.2
