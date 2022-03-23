@@ -39,3 +39,12 @@ class Vacancy(models.Model):
     salary_min = IntegerField()
     salary_max = IntegerField()
     published_at = DateTimeField()
+
+
+class Application(models.Model):
+    """Отклик на вакансию"""
+    written_username = CharField(max_length=100)
+    written_phone = CharField(max_length=31)
+    written_cover_letter = TextField()
+    vacancy = ForeignKey(Vacancy, related_name='applications', on_delete=models.CASCADE)
+    user = OneToOneField(User, related_name='applications', on_delete=models.CASCADE)
