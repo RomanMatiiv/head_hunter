@@ -134,3 +134,12 @@ path_to_logger_config = os.path.join(BASE_DIR, 'logger.yaml')
 with open(path_to_logger_config) as f:
     logger_config = yaml.safe_load(f)
 LOGGING = logger_config
+
+# TODO по разбираться получше
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'
+
+
+MEDIA_COMPANY_IMAGE_DIR = 'company_images'
+MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
+
