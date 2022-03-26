@@ -27,6 +27,9 @@ from junior_hunter.views import CategoryVacancyView
 from junior_hunter.views import CompanyView
 from junior_hunter.views import MainPageView
 from junior_hunter.views import VacancyView
+from junior_hunter.views import LoginView
+from junior_hunter.views import LogoutView
+from junior_hunter.views import RegisterView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +38,17 @@ urlpatterns = [
     path('vacancies/<int:vacancy_id>', VacancyView.as_view(), name='vacancy'),
     path('vacancies/cat/<str:category>', CategoryVacancyView.as_view(), name='category_vacancies'),
     path('companies/<int:company_id>', CompanyView.as_view(), name='company'),
+
+    # path('vacancies/<int:vacancy_id>/send/', , name=''),
+    # path('mycompany/letsstart/',, name=''),
+    # path('mycompany/create/',, name=''),
+    # path('mycompany/',, name=''),
+    # path('mycompany/vacancies/',, name=''),
+    # path('mycompany/vacancies/create/',, name=''),
+    # path('mycompany/vacancies/<int:vacancy_id>',, name= ),
+    path('login', LoginView.as_view(), name='login'),
+    path('register', RegisterView.as_view(), name='register'),
+    path('logout', LogoutView.as_view(), name='logout'),
 
 ]
 

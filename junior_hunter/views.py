@@ -58,6 +58,7 @@ class CategoryVacancyView(ListView):
         return filtered_queryset
 
 
+# TODO переделать на DetailView
 class CompanyView(ListView):
     """Карточка компании"""
     template_name = 'junior_hunter/company.html'
@@ -81,3 +82,16 @@ class CompanyView(ListView):
         queryset = super().get_queryset()
         filtered_queryset = queryset.filter(company__id=self.company.id)
         return filtered_queryset
+
+
+class LoginView(TemplateView):
+    template_name = 'junior_hunter/login.html'
+
+
+# TODO делать просто редирект на login
+class LogoutView(TemplateView):
+    template_name = 'junior_hunter/login.html'
+
+
+class RegisterView(TemplateView):
+    template_name = 'junior_hunter/register.html'
