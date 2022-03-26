@@ -135,7 +135,7 @@ with open(path_to_logger_config) as f:
     logger_config = yaml.safe_load(f)
 LOGGING = logger_config
 
-# TODO по разбираться получше
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = 'media'
 
