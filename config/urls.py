@@ -27,10 +27,11 @@ from junior_hunter.views import CategoryVacancyView
 from junior_hunter.views import CompanyView
 from junior_hunter.views import MainPageView
 from junior_hunter.views import VacancyView
-from junior_hunter.views import LoginView
-from junior_hunter.views import LogoutView
-from junior_hunter.views import RegisterView
+from accounts.views import MyLoginView
+from accounts.views import LogoutView
+from accounts.views import RegisterView
 
+# TODO структурировать url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', MainPageView.as_view(), name='main'),
@@ -46,7 +47,7 @@ urlpatterns = [
     # path('mycompany/vacancies/',, name=''),
     # path('mycompany/vacancies/create/',, name=''),
     # path('mycompany/vacancies/<int:vacancy_id>',, name= ),
-    path('login', LoginView.as_view(), name='login'),
+    path('login', MyLoginView.as_view(), name='login'),
     path('register', RegisterView.as_view(), name='register'),
     path('logout', LogoutView.as_view(), name='logout'),
 
