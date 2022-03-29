@@ -1,6 +1,6 @@
 import logging
 
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -18,6 +18,7 @@ class LogoutView(View):
     template_name = 'accounts/login.html'
 
     def get(self, request, *args, **kwargs):
+        logout(request)
         return HttpResponseRedirect(reverse_lazy('main'))
 
 
