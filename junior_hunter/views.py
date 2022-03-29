@@ -83,15 +83,3 @@ class CompanyView(ListView):
         filtered_queryset = queryset.filter(company__id=self.company.id)
         return filtered_queryset
 
-
-class LoginView(TemplateView):
-    template_name = 'junior_hunter/login.html'
-
-
-# TODO делать просто редирект на login
-class LogoutView(TemplateView):
-    template_name = 'junior_hunter/login.html'
-
-
-class RegisterView(TemplateView):
-    template_name = 'junior_hunter/register.html'
