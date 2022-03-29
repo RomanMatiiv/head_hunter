@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <title>Джуманджи</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <main class="container">
+    <div class="row">
+      <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+        <form class="form-signin pt-5" enctype="multipart/form-data" method="post">
+          {% csrf_token %}
+          <div class="text-center mt-5 b-1">
+
+            <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
+            <p class="h5 font-weight-light">Войдите, чтобы управлять</p>
+            <!-- печать ошибок -->
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ field.name }} {{ error }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+          </div>
+
+          <div class="mt-5 form-label-group">
+            <p class="text-muted">{{ form.username.label }}</p>
+            <input name="{{ form.username.name }}" type="text" id="{{ form.username.id_for_label }}" class="form-control"  required autofocus>
+            <label for="{{ form.username.id_for_label }}"></label>
+          </div>
+
+
+          <div class="form-label-group">
+            <p class="text-muted"> {{ form.password.label }}</p>
+            <input name="{{ form.password.name }}" type="password" id="{{ form.password.id_for_label }}" class="form-control" required>
+            <label for="{{ form.password.id_for_label }}"></label>
+          </div>
+
+          <div class="checkbox mb-3"></div>
+          <button class="btn btn-primary btn-lg btn-block" type="submit">Войти</button>
+        </form>
+
+        <div class="mt-4 text-center"><p>Нет аккаунта? <a href="{% url 'register' %}">Зарегистрируйтесь!</a></p></div>
+
+      </div>
+    </div>
+  </main>
+</body>
+</html>
