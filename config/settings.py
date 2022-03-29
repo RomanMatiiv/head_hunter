@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'django_extensions',
 
+    'accounts',
     'junior_hunter',
     'junior_hunter.templatetags',
 ]
