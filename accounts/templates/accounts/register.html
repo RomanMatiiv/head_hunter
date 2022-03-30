@@ -25,7 +25,8 @@
             {% for field in form %}
                 {% for error in field.errors %}
                     <div class="alert alert-danger" role="alert">
-                      {{ error }}
+                      Поле: {{ field.label }}<br>
+                      Ошибка: {{ error }}
                     </div>
                 {% endfor %}
             {% endfor %}
@@ -51,9 +52,9 @@
           </div>
 
           <div class="form-label-group">
-            <p class="text-muted"> {{ form.password.label }}</p>
-            <input name="{{ form.password.name }}" type="password" id="{{ form.password.id_for_label }}" class="form-control" required>
-            <label for="{{ form.password.id_for_label }}"></label>
+            <p class="text-muted"> {{ form.password1.label }}</p>
+            <input name="{{ form.password1.name }}" type="password" id="{{ form.password1.id_for_label }}" class="form-control" required>
+            <label for="{{ form.password1.id_for_label }}"></label>
           </div>
 
           <div class="checkbox mb-3"></div>
