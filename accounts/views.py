@@ -33,9 +33,7 @@ class RegisterView(View):
 
         if register_form.is_valid():
             register_form.save()
-            # TODO сделать редирект на ту же страницу но с зеленой надписью успеха
-            # https://getbootstrap.com/docs/4.0/components/alerts/
-            return redirect(reverse_lazy('main'))
+            return render(request, 'accounts/register.html', context={'form': register_form})
         else:
             logger.error("invalid form")
             return render(request, 'accounts/register.html', context={'form': register_form})

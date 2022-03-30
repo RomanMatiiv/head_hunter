@@ -30,6 +30,12 @@
                     </div>
                 {% endfor %}
             {% endfor %}
+            <!-- Печать успешной регистрации -->
+            {% if not form.errors and request.method == 'POST' %}
+                <div class="alert alert-success" role="alert">
+                      Пользователь {{ form.username.value }} успешно зарегистрирован
+                </div>
+            {% endif %}
           </div>
 
 {#        TODO попробовать выводить в цикле, были проблемы с type и focuse#}
