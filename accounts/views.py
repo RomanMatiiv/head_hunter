@@ -30,13 +30,9 @@ class RegisterView(View):
 
     def post(self, request):
         register_form = RegisterForm(request.POST)
-
         if register_form.is_valid():
             register_form.save()
-            return render(request, 'accounts/register.html', context={'form': register_form})
-        else:
-            logger.error("invalid form")
-            return render(request, 'accounts/register.html', context={'form': register_form})
+        return render(request, 'accounts/register.html', context={'form': register_form})
 
 
 class MyLoginView(LoginView):
