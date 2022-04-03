@@ -58,7 +58,7 @@ class VacancyView(DetailView):
             )
             application.save()
 
-        return HttpResponseRedirect(reverse_lazy('success_application'))
+        return HttpResponseRedirect(reverse_lazy('sent'))
 
 
 class AllVacanciesView(ListView):
