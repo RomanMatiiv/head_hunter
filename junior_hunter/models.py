@@ -63,4 +63,4 @@ class Application(models.Model):
     written_phone = CharField(max_length=31)
     written_cover_letter = TextField()
     vacancy = ForeignKey(Vacancy, related_name='applications', on_delete=models.CASCADE)
-    user = OneToOneField(User, related_name='applications', on_delete=models.CASCADE)
+    user = ForeignKey(User, related_name='applications', on_delete=models.CASCADE)
