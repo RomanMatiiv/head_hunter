@@ -17,6 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 
 from config.error_handlers import custom_handler400
 from config.error_handlers import custom_handler403
@@ -39,6 +40,7 @@ urlpatterns = [
     path('vacancies/<int:vacancy_id>', VacancyView.as_view(), name='vacancy'),
     path('vacancies/cat/<str:category>', CategoryVacancyView.as_view(), name='category_vacancies'),
     path('companies/<int:company_id>', CompanyView.as_view(), name='company'),
+    path('success_application', TemplateView.as_view(template_name="junior_hunter/success_application.html"), name='success_application'),
 
     # path('vacancies/<int:vacancy_id>/send/', , name=''),
     # path('mycompany/letsstart/',, name=''),
