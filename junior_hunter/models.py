@@ -7,7 +7,6 @@ from django.db.models import DateTimeField
 from django.db.models import ForeignKey
 from django.db.models import IntegerField
 from django.db.models import TextField
-from django.db.models import URLField
 
 from config.settings import MEDIA_COMPANY_IMAGE_DIR
 from config.settings import MEDIA_SPECIALITY_IMAGE_DIR
@@ -63,4 +62,4 @@ class Application(models.Model):
     written_phone = CharField(max_length=31)
     written_cover_letter = TextField()
     vacancy = ForeignKey(Vacancy, related_name='applications', on_delete=models.CASCADE)
-    user = ForeignKey(User, related_name='applications', on_delete=models.CASCADE)
+    user = OneToOneField(User, related_name='applications', on_delete=models.CASCADE)
