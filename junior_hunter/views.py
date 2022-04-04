@@ -1,6 +1,8 @@
 from pyexpat import model
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -8,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.views.generic import ListView
 from django.views.generic import DetailView
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 
 from junior_hunter.models import Specialty, Application
 from junior_hunter.models import Company
@@ -35,30 +37,39 @@ class VacancyView(DetailView):
     slug_field = 'id'
     slug_url_kwarg = 'vacancy_id'
 
-    # TODO разобраться почему не работает аутентификация, точнее когда не залогинен
-    # @login_required(login_url=reverse_lazy('login'))
+    # @login_required
+    # не работает см https://stackoverflow.com/questions/68810221/
     def post(self, request, *args, **kwargs):
         form = ApplicationForm(request.POST)
-        if form.is_valid():
-            data = form.cleaned_data
 
-            written_username = data['written_username']
-            written_phone = data['written_phone']
-            written_cover_letter = data['written_cover_letter']
-            vacancy = self.get_object()
-            # user = request.user
-            user = User.objects.get(id=1)
+        if not form.is_valid():
+            pass
+            # TODO бобавть обработку неправильно заполненной формы
+            # TODO бобавть обработку если на вакансию уже откликнулись
 
-            application = Application(
-                written_username=written_username,
-                written_phone=written_phone,
-                written_cover_letter=written_cover_letter,
-                vacancy=vacancy,
-                user=user,
-            )
-            application.save()
+        data = form.cleaned_data
+
+        written_username = data['written_username']
+        written_phone = data['written_phone']
+        written_cover_letter = data['written_cover_letter']
+        vacancy = self.get_object()
+        user = request.user
+
+        # TODO сделать нормально без костылей
+        if user.is_anonymous:
+            raise PermissionDenied
+
+        application = Application(
+            written_username=written_username,
+            written_phone=written_phone,
+            written_cover_letter=written_cover_letter,
+            vacancy=vacancy,
+            user=user,
+        )
+        application.save()
 
         return HttpResponseRedirect(reverse_lazy('sent'))
+
 
 
 class AllVacanciesView(ListView):
