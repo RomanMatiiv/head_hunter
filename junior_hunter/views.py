@@ -4,13 +4,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from django.views import View
+from django.views.generic import TemplateView, FormView
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404, render
+from django.views.generic.detail import SingleObjectMixin
 
 from junior_hunter.models import Specialty, Application
 from junior_hunter.models import Company
@@ -30,6 +32,9 @@ class MainPageView(TemplateView):
         return context
 
 
+# возможно от detailView нужно отказаться тк форму сложно обрабатывать
+# https://docs.djangoproject.com/en/4.0/topics/class-based-views/mixins/#using-formmixin-with-detailview
+# см https://stackoverflow.com/questions/45659986
 class VacancyView(DetailView):
     """ Одна вакансия"""
     template_name = 'junior_hunter/vacancy.html'
@@ -69,7 +74,6 @@ class VacancyView(DetailView):
         application.save()
 
         return HttpResponseRedirect(reverse_lazy('sent'))
-
 
 
 class AllVacanciesView(ListView):

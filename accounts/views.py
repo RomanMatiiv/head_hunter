@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 # TODO переделать на RedirectView или LogoutView
 class LogoutView(View):
-    template_name = 'accounts/login.html'
+    template_name = 'accounts/login.html'  # TODO посмотреть действительно ли я использую в этой вьюхе шаблон
 
     def get(self, request, *args, **kwargs):
         logout(request)

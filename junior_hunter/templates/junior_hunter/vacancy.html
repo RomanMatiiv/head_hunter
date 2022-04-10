@@ -23,8 +23,6 @@
             {{ object.description|safe }}
           </div>
 
-{{ user.is_authenticated }}
-
           <form class="card mt-4 mb-3" enctype="multipart/form-data" method="post">
             {% csrf_token %}
             <div class="card-body mx-3">
