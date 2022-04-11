@@ -138,7 +138,8 @@ class CompanyView(ListView):
 #     form_class = MyCompanyForm
 #     success_url = ''
 
-
+# TODO добавить проверку аутентицикации
+# TODO поробовать упростить  https://www.agiliq.com/blog/2019/01/django-createview/
 class MyCompanyCreateView(View):
     def get(self, request, *args, **kwargs):
         my_company = MyCompanyForm()

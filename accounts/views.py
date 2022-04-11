@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 
-from accounts.forms import MyAuthenticationForm
+# from accounts.forms import MyAuthenticationForm
 from accounts.forms import RegisterForm
 
 logger = logging.getLogger(__name__)
