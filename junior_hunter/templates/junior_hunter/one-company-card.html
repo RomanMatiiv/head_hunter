@@ -1,0 +1,99 @@
+{% load filters %}
+
+
+<div class="card">
+  <div class="card-body px-4 pb-4">
+    <!-- Tab -->
+    <section class="tab-pane fade show active">
+      <h2 class="h4 pt-2 pb-3">Информация о&nbsp;компании</h2>
+
+{#          <p class="alert alert-info" role="alert">#}
+{#            Информация о компании обновлена#}
+{#          </p>#}
+
+      <form enctype="multipart/form-data" method="post">
+      {% csrf_token %}
+
+                      <!-- печать ошибок -->
+            {% for error in form.non_field_errors %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger" role="alert">
+                      {{ field.name }} {{ error }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+        <div class="row">
+
+          <div class="col-12 col-md-6">
+            <div class="form-group pb-2">
+              <label class="mb-2 text-dark" for="companyName">Название компании</label>
+              <input name="{{ form.name.name }}" value="{{ form.employee_count.value|default:"" }}" class="form-control" type="text" id="{{ form.name.id_for_label }}">
+              <label for="{{ form.name.id_for_label }}"></label>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="form-group">
+              <label class="mb-2 text-dark" for="companyLogo">Логотип</label>
+              <div class="row align-items-center">
+                <div class="col-6">
+                  <img src="{{ form.logo.url }}" alt="https://place-hold.it/120x40" style="max-width: 120px;height: auto;">
+                </div>
+                <div class="col-6" style="position: relative;">
+                  <div class="input-group-prepend" style="position: absolute; top: 0;right: 15px;">
+                    <span class="btn btn-info px-4">Загрузить</span>
+                  </div>
+                  <div class="custom-file" style="">
+                    <input name="{{ form.logo.name }}" value="{{ form.employee_count.value|default:"" }}" type="file" class="custom-file-input" id="{{ form.logo.id_for_label }}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+
+          <div class="col-12 col-md-6">
+            <div class="form-group pb-2">
+              <label class="mb-2 text-dark" for="companyTeam">Количество человек в компании</label>
+              <input name="{{ form.employee_count.name }}" value="{{ form.employee_count.value|default:"" }}" class="form-control" type="text" id="{{ form.employee_count.id_for_label }}">
+              <label for="{{ form.employee_count.id_for_label }}"></label>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+            <div class="form-group pb-2">
+              <label class="mb-2 text-dark" for="companyLocation">География</label>
+              <input name="{{ form.location.name }}" value="{{ form.employee_count.value|default:"" }}" class="form-control" type="text" id="{{ form.location.id_for_label }}">
+              <label for="{{ form.location.id_for_label }}"></label>
+            </div>
+          </div>
+
+        </div>
+        <div class="form-group pb-2">
+          <label class="mb-2 text-dark" for="companyInfo">Информация о&nbsp;компании</label>
+          <textarea name="{{ form.description.name }}"  class="form-control" rows="4" id="{{ form.description.id_for_label }}" style="color:#000;">
+            {{ form.description.value|default:"" }}
+          </textarea>
+          <label for="{{ form.description.id_for_label }}"></label>
+        </div>
+
+      {{ form.owner.name }}
+      {{ form.owner.value }}
+
+        <div class="form-group">
+          <input type="submit" class="btn btn-info" value="Сохранить">
+        </div>
+
+      </form>
+    </section>
+    <!-- END Tab -->
+  </div>
+</div>

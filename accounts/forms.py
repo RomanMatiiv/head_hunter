@@ -2,6 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm, UsernameField, UserCre
 from django.contrib.auth.models import User
 from django import forms
 
+from junior_hunter.models import Company
 
 class RegisterForm(UserCreationForm):
     password2 = None
@@ -16,8 +17,15 @@ class RegisterForm(UserCreationForm):
         labels = {'username': 'Логин'}
 
 
-class MyAuthenticationForm(AuthenticationForm):
-    username = UsernameField(
-        label='Логин',
-        widget=forms.TextInput(attrs={'autofocus': True})
-    )
+# class MyAuthenticationForm(AuthenticationForm):
+#     username = UsernameField(
+#         label='Логин',
+#         widget=forms.TextInput(attrs={'autofocus': True})
+#     )
+
+class MyCompanyForm(forms.ModelForm):
+
+    class Meta:
+        model = Company
+        # fields = '__all__'
+        exclude = ['owner']

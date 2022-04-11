@@ -8,12 +8,13 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, CreateView
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.detail import SingleObjectMixin
 
+from accounts.forms import MyCompanyForm
 from junior_hunter.models import Specialty, Application
 from junior_hunter.models import Company
 from junior_hunter.models import Vacancy
@@ -131,3 +132,25 @@ class CompanyView(ListView):
         filtered_queryset = queryset.filter(company__id=self.company.id)
         return filtered_queryset
 
+
+# class MyCompanyCreateView(FormView):
+#     template_name = 'junior_hunter/my-company-create.html'
+#     form_class = MyCompanyForm
+#     success_url = ''
+
+
+class MyCompanyCreateView(View):
+    def get(self, request, *args, **kwargs):
+        my_company = MyCompanyForm()
+        my_company.owner = request.user
+        context = {'form': my_company}
+        return render(request, 'junior_hunter/my-company-create.html', context)
+
+    def post(self, request, *args, **kwargs):
+        form = MyCompanyForm(request.POST, request.FILES)
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.owner = request.user
+            book.save()
+            # return HttpResponseRedirect(reverse_lazy('main'))
+        return render(request, 'junior_hunter/my-company-create.html', {'form': form})
