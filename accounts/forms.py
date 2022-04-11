@@ -27,5 +27,5 @@ class MyCompanyForm(forms.ModelForm):
 
     class Meta:
         model = Company
-        # fields = '__all__'
+        fields = '__all__'
         exclude = ['owner']

@@ -149,9 +149,8 @@ class MyCompanyCreateView(View):
 
     def post(self, request, *args, **kwargs):
         form = MyCompanyForm(request.POST, request.FILES)
+        form.instance.owner = request.user
         if form.is_valid():
-            book = form.save(commit=False)
-            book.owner = request.user
-            book.save()
+            form.save()
             # return HttpResponseRedirect(reverse_lazy('main'))
         return render(request, 'junior_hunter/my-company-create.html', {'form': form})
