@@ -2,7 +2,7 @@ from pyexpat import model
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse_lazy
@@ -147,7 +147,7 @@ class MyCompanyCreateView(View):
         my_company.owner = request.user
         context = {'form': my_company}
         # return render(request, 'junior_hunter/my-company-create.html', context)
-        return render(request, 'junior_hunter/company-edit.html', context)
+        return render(request, 'junior_hunter/my-company-edit.html', context)
 
     def post(self, request, *args, **kwargs):
         form = MyCompanyForm(request.POST, request.FILES)
@@ -155,4 +155,4 @@ class MyCompanyCreateView(View):
         if form.is_valid():
             form.save()
         # return render(request, 'junior_hunter/my-company-create.html', {'form': form})
-        return render(request, 'junior_hunter/company-edit.html', {'form': form})
+        return render(request, 'junior_hunter/my-company-edit.html', {'form': form})
