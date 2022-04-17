@@ -134,7 +134,7 @@ class CompanyView(ListView):
 
 
 # class MyCompanyCreateView(FormView):
-#     template_name = 'junior_hunter/my-company-create.html'
+#     template_name = 'junior_hunter/my-my-company-letsstart.html'
 #     form_class = MyCompanyForm
 #     success_url = ''
 
