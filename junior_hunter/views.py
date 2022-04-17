@@ -143,8 +143,14 @@ class CompanyView(ListView):
 # TODO в зависимости от того есть компания или нет отображать или нет боковое меню
 class MyCompanyCreateView(View):
     def get(self, request, *args, **kwargs):
-        my_company = MyCompanyForm()
-        my_company.owner = request.user
+
+        try:
+            company = Company.objects.get(owner_id=request.user.id)  # TODO проверка аутентификации здесь очень нужна
+        except ObjectDoesNotExist:
+            company = Company()
+
+        my_company = MyCompanyForm(instance=company)
+
         context = {'form': my_company}
         # return render(request, 'junior_hunter/my-company-create.html', context)
         return render(request, 'junior_hunter/my-company-edit.html', context)
