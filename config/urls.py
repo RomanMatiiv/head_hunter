@@ -45,6 +45,7 @@ urlpatterns = [
     path('user_profile', TemplateView.as_view(template_name='junior_hunter/user_profile.html'), name='user_profile'),
 
     path('mycompany/create', MyCompanyCreateView.as_view(), name='mycompany_create'),
+    path('mycompany/letsstart', TemplateView.as_view(template_name='junior_hunter/my-company-letsstart.html'), name='mycompany_letsstart'),
 
     # path('vacancies/<int:vacancy_id>/send/', , name=''),
     # path('mycompany/letsstart/',, name=''),
