@@ -33,7 +33,7 @@
           <div class="col-12 col-md-6">
             <div class="form-group pb-2">
               <label class="mb-2 text-dark" for="companyName">Название компании</label>
-              <input name="{{ form.name.name }}" value="{{ form.employee_count.value|default:"" }}" class="form-control" type="text" id="{{ form.name.id_for_label }}">
+              <input name="{{ form.name.name }}" value="{{ form.name.value|default:"" }}" class="form-control" type="text" id="{{ form.name.id_for_label }}">
               <label for="{{ form.name.id_for_label }}"></label>
             </div>
           </div>
@@ -71,7 +71,7 @@
           <div class="col-12 col-md-6">
             <div class="form-group pb-2">
               <label class="mb-2 text-dark" for="companyLocation">География</label>
-              <input name="{{ form.location.name }}" value="{{ form.employee_count.value|default:"" }}" class="form-control" type="text" id="{{ form.location.id_for_label }}">
+              <input name="{{ form.location.name }}" value="{{ form.location.value|default:"" }}" class="form-control" type="text" id="{{ form.location.id_for_label }}">
               <label for="{{ form.location.id_for_label }}"></label>
             </div>
           </div>
