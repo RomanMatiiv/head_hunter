@@ -140,17 +140,19 @@ class CompanyView(ListView):
 
 # TODO добавить проверку аутентицикации
 # TODO поробовать упростить  https://www.agiliq.com/blog/2019/01/django-createview/
+# TODO в зависимости от того есть компания или нет отображать или нет боковое меню
 class MyCompanyCreateView(View):
     def get(self, request, *args, **kwargs):
         my_company = MyCompanyForm()
         my_company.owner = request.user
         context = {'form': my_company}
-        return render(request, 'junior_hunter/my-company-create.html', context)
+        # return render(request, 'junior_hunter/my-company-create.html', context)
+        return render(request, 'junior_hunter/company-edit.html', context)
 
     def post(self, request, *args, **kwargs):
         form = MyCompanyForm(request.POST, request.FILES)
         form.instance.owner = request.user
         if form.is_valid():
             form.save()
-            # return HttpResponseRedirect(reverse_lazy('main'))
-        return render(request, 'junior_hunter/my-company-create.html', {'form': form})
+        # return render(request, 'junior_hunter/my-company-create.html', {'form': form})
+        return render(request, 'junior_hunter/company-edit.html', {'form': form})
