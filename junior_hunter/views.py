@@ -8,10 +8,10 @@ from django.http import HttpResponseRedirect, HttpResponseForbidden
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views import View
-from django.views.generic import TemplateView, FormView, CreateView
+from django.views.generic import TemplateView, FormView, CreateView, RedirectView
 from django.views.generic import ListView
 from django.views.generic import DetailView
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.detail import SingleObjectMixin
 
 from accounts.forms import MyCompanyForm
@@ -73,8 +73,7 @@ class VacancyView(DetailView):
             user=user,
         )
         application.save()
-
-        return HttpResponseRedirect(reverse_lazy('sent'))
+        return redirect('sent')
 
 
 class AllVacanciesView(ListView):
@@ -133,32 +132,39 @@ class CompanyView(ListView):
         return filtered_queryset
 
 
-# class MyCompanyCreateView(FormView):
-#     template_name = 'junior_hunter/my-my-company-letsstart.html'
-#     form_class = MyCompanyForm
-#     success_url = ''
-
 # TODO добавить проверку аутентицикации
 # TODO поробовать упростить  https://www.agiliq.com/blog/2019/01/django-createview/
 # TODO в зависимости от того есть компания или нет отображать или нет боковое меню
-class MyCompanyCreateView(View):
-    def get(self, request, *args, **kwargs):
+class MyCompanyView(View):
+    def get(self, request):
 
+        # TODO частичное дублирование код, возможно лучше создать get_object_or_none в менеджере объектов
+            # https: // overcoder.net / q / 864 / django - получить - объект - из - бд - или - none - если - ничего - не - найдено
         try:
             company = Company.objects.get(owner_id=request.user.id)  # TODO проверка аутентификации здесь очень нужна
         except ObjectDoesNotExist:
-            company = Company()
+            return redirect('mycompany_letsstart')
 
         my_company = MyCompanyForm(instance=company)
 
         context = {'form': my_company}
-        # return render(request, 'junior_hunter/my-company-create.html', context)
         return render(request, 'junior_hunter/my-company-edit.html', context)
 
-    def post(self, request, *args, **kwargs):
-        form = MyCompanyForm(request.POST, request.FILES)
+    def post(self, request):
+        # TODO частичное дублирование код, возможно лучше создать get_object_or_none в менеджере объектов
+        try:
+            company = Company.objects.get(owner_id=request.user.id)
+        except ObjectDoesNotExist:
+            company = None
+
+        form = MyCompanyForm(instance=company, data=request.POST, files=request.FILES)
         form.instance.owner = request.user
         if form.is_valid():
             form.save()
-        # return render(request, 'junior_hunter/my-company-create.html', {'form': form})
-        return render(request, 'junior_hunter/my-company-edit.html', {'form': form})
+        return redirect('mycompany')
+
+
+class MyCompanyCreateView(MyCompanyView):
+    def get(self, request):
+        context = {'form': MyCompanyForm}
+        return render(request, 'junior_hunter/my-company-create.html', context)

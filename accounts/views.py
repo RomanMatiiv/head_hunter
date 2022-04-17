@@ -20,7 +20,7 @@ class LogoutView(View):
 
     def get(self, request, *args, **kwargs):
         logout(request)
-        return HttpResponseRedirect(reverse_lazy('main'))
+        return redirect('main')
 
 
 # TODO попробовать переписать на CBV
@@ -37,3 +37,4 @@ class RegisterView(View):
 
 class MyLoginView(LoginView):
     template_name = 'accounts/login.html'
+    next_page = reverse_lazy('mycompany')
