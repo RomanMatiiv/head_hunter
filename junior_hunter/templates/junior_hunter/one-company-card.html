@@ -39,27 +39,31 @@
           </div>
 
           <div class="col-12 col-md-6">
+            <script>
+                function preview() {
+                    frame.src = URL.createObjectURL(event.target.files[0]);
+                }
+            </script>
             <div class="form-group">
               <label class="mb-2 text-dark" for="companyLogo">Логотип</label>
               <div class="row align-items-center">
                 <div class="col-6">
-                  <img src="{{ form.logo.value.url }}" alt="https://place-hold.it/120x40" style="max-width: 120px;height: auto;">
+                    <img id="frame" src="{{ form.logo.value.url }}" class="img-fluid" style="max-width: 120px;height: auto;"/>
                 </div>
                 <div class="col-6" style="position: relative;">
                   <div class="input-group-prepend" style="position: absolute; top: 0;right: 15px;">
                     <span class="btn btn-info px-4">Загрузить</span>
                   </div>
                   <div class="custom-file" style="">
-                    <input name="{{ form.logo.name }}" value="{{ form.logo.value|default:"" }}" type="file" class="custom-file-input" id="{{ form.logo.id_for_label }}">
+                    <input name="{{ form.logo.name }}" class="custom-file-input" type="file" id="formFile" onchange="preview()">
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
         </div>
-        <div class="row">
 
+        <div class="row">
           <div class="col-12 col-md-6">
             <div class="form-group pb-2">
               <label class="mb-2 text-dark" for="companyTeam">Количество человек в компании</label>
