@@ -1,25 +1,20 @@
-from pyexpat import model
-
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import PermissionDenied
 from django.db.models import Count
-from django.http import HttpResponseRedirect, HttpResponseForbidden
-from django.urls import reverse_lazy
-from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.views import View
-from django.views.generic import TemplateView, FormView, CreateView, RedirectView
-from django.views.generic import ListView
 from django.views.generic import DetailView
-from django.shortcuts import get_object_or_404, render, redirect
-from django.views.generic.detail import SingleObjectMixin
+from django.views.generic import ListView
+from django.views.generic import TemplateView
 
 from accounts.forms import MyCompanyForm
-from junior_hunter.models import Specialty, Application
-from junior_hunter.models import Company
-from junior_hunter.models import Vacancy
 from junior_hunter.forms import ApplicationForm
-from django.contrib.auth.models import User
+from junior_hunter.models import Application
+from junior_hunter.models import Company
+from junior_hunter.models import Specialty
+from junior_hunter.models import Vacancy
 
 
 class MainPageView(TemplateView):

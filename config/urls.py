@@ -23,7 +23,9 @@ from config.error_handlers import custom_handler400
 from config.error_handlers import custom_handler403
 from config.error_handlers import custom_handler404
 from config.error_handlers import custom_handler500
-from junior_hunter.views import AllVacanciesView, MyCompanyView, MyCompanyCreateView
+from junior_hunter.views import AllVacanciesView
+from junior_hunter.views import MyCompanyView
+from junior_hunter.views import MyCompanyCreateView
 from junior_hunter.views import CategoryVacancyView
 from junior_hunter.views import CompanyView
 from junior_hunter.views import MainPageView

@@ -1,10 +1,9 @@
 import logging
 
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
