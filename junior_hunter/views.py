@@ -163,3 +163,21 @@ class MyCompanyCreateView(MyCompanyView):
     def get(self, request):
         context = {'form': MyCompanyForm}
         return render(request, 'junior_hunter/my-company-create.html', context)
+
+
+class MyCompanyVacancies(ListView):
+    template_name = 'junior_hunter/vacancy-list.html'
+    model = Vacancy
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.company = None
+
+    def setup(self, request, *args, **kwargs):
+        super().setup(request, *args, **kwargs)
+        self.company = get_object_or_404(Company, owner=request.user.id)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filtered_queryset = queryset.filter(company_id=self.company.id)
+        return filtered_queryset

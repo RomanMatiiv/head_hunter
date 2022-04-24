@@ -24,6 +24,7 @@ from config.error_handlers import custom_handler403
 from config.error_handlers import custom_handler404
 from config.error_handlers import custom_handler500
 from junior_hunter.views import AllVacanciesView
+from junior_hunter.views import MyCompanyVacancies
 from junior_hunter.views import MyCompanyView
 from junior_hunter.views import MyCompanyCreateView
 from junior_hunter.views import CategoryVacancyView
@@ -48,15 +49,11 @@ urlpatterns = [
 
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
     path('mycompany/create', MyCompanyCreateView.as_view(), name='mycompany_create'),
-    # path('mycompany', MyCompanyRedirect.as_view(), name='mycompany'),
     path('mycompany/letsstart', TemplateView.as_view(template_name='junior_hunter/my-company-letsstart.html'), name='mycompany_letsstart'),
+    path('mycompany/vacancies/', MyCompanyVacancies.as_view(), name='mycompany_vacancies'),
 
-    # path('vacancies/<int:vacancy_id>/send/', , name=''),
-    # path('mycompany/letsstart/',, name=''),
-    # path('mycompany/create/',, name=''),
-    # path('mycompany/',, name=''),
-    # path('mycompany/vacancies/',, name=''),
     # path('mycompany/vacancies/create/',, name=''),
+    # path('mycompany/vacancies/edit/',, name=''),
     # path('mycompany/vacancies/<int:vacancy_id>',, name= ),
     path('login', MyLoginView.as_view(), name='login'),
     path('register', RegisterView.as_view(), name='register'),
