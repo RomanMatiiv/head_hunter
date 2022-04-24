@@ -166,7 +166,7 @@ class MyCompanyCreateView(MyCompanyView):
 
 
 class MyCompanyVacancies(ListView):
-    template_name = 'junior_hunter/vacancy-list.html'
+    template_name = 'junior_hunter/my-company-vacancy-list.html'
     model = Vacancy
 
     def __init__(self, *args, **kwargs):
