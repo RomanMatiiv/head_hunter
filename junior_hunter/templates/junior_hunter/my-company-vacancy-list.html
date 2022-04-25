@@ -34,13 +34,13 @@
                       </p>
                     </div>
                     <div class="col-6 col-lg-4 text-right">
-                      <a href="#" class="btn btn-outline-info">Изменить</a>
+                      <a href="{% url 'mycompany_vacancy_edit' vacancy_id=cur_vacancy.id %}" class="btn btn-outline-info">Изменить</a>
                     </div>
                   </div>
                 </div>
               </div>
           {% endfor %}
-          <a href="#" class="btn btn-info mt-3">Добавить вакансию</a>
+          <a href="{% url 'mycompany_vacancy_create' %}" class="btn btn-info mt-3">Добавить вакансию</a>
 
         </section>
 
