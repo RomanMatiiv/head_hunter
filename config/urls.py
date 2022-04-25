@@ -51,10 +51,10 @@ urlpatterns = [
     path('mycompany/create', MyCompanyCreateView.as_view(), name='mycompany_create'),
     path('mycompany/letsstart', TemplateView.as_view(template_name='junior_hunter/my-company-letsstart.html'), name='mycompany_letsstart'),
     path('mycompany/vacancies/', MyCompanyVacancies.as_view(), name='mycompany_vacancies'),
+    path('mycompany/vacancies/edit/<int:vacancy_id>', MyCompanyEditVacancy.as_view(), name='mycompany_vacancy_edit'),
+    path('mycompany/vacancies/create/', MyCompanyCreateVacancy.as_view(), name='mycompany_vacancy_create'),
 
-    # path('mycompany/vacancies/create/',, name=''),
-    # path('mycompany/vacancies/edit/',, name=''),
-    # path('mycompany/vacancies/<int:vacancy_id>',, name= ),
+# path('mycompany/vacancies/<int:vacancy_id>',, name= ),
     path('login', MyLoginView.as_view(), name='login'),
     path('register', RegisterView.as_view(), name='register'),
     path('logout', LogoutView.as_view(), name='logout'),
