@@ -11,6 +11,7 @@ from django.views.generic import TemplateView
 
 from accounts.forms import MyCompanyForm
 from junior_hunter.forms import ApplicationForm
+from junior_hunter.forms import VacancyForm
 from junior_hunter.models import Application
 from junior_hunter.models import Company
 from junior_hunter.models import Specialty
@@ -181,3 +182,32 @@ class MyCompanyVacancies(ListView):
         queryset = super().get_queryset()
         filtered_queryset = queryset.filter(company_id=self.company.id)
         return filtered_queryset
+
+
+class MyCompanyEditVacancy(View):
+    def get(self, request, *args, **kwargs):
+        vacancy_id = kwargs['vacancy_id']
+        vacancy = get_object_or_404(Vacancy, id=vacancy_id)
+        vacancy_application = vacancy.applications
+
+        vacancy_form = VacancyForm(instance=vacancy)
+
+        context = {'form': vacancy_form,
+                   'applications': vacancy_application,
+                   }
+        return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
+
+    def post(self, request,*args, **kwargs):
+        # TODO дублирование тоже что и в get
+        vacancy_id = kwargs['vacancy_id']
+        vacancy = get_object_or_404(Vacancy, id=vacancy_id)
+
+        form = VacancyForm(instance=vacancy, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+        return redirect('mycompany_vacancy_edit', vacancy_id=vacancy_id)
+
+
+class MyCompanyCreateVacancy(MyCompanyEditVacancy):
+    # не понял как я узнаю id только что созданной вакансии
+    pass
