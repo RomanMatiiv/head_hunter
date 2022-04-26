@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count
@@ -208,6 +210,22 @@ class MyCompanyEditVacancy(View):
         return redirect('mycompany_vacancy_edit', vacancy_id=vacancy_id)
 
 
-class MyCompanyCreateVacancy(MyCompanyEditVacancy):
-    # не понял как я узнаю id только что созданной вакансии
-    pass
+class MyCompanyCreateVacancy(View):
+    # TODO дублирование MyCompanyEditVacancy
+    def get(self, request, *args, **kwargs):
+        vacancy_form = VacancyForm()
+
+        context = {'form': vacancy_form}
+        return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
+
+    def post(self, request,*args, **kwargs):
+        form = VacancyForm(data=request.POST, files=request.FILES)
+        form.instance.company = get_object_or_404(Company, owner=request.user.id)
+        form.instance.published_at = datetime.datetime.now()
+        if form.is_valid():
+            created_vacancy = form.save()
+            return redirect('mycompany_vacancy_edit', vacancy_id=created_vacancy.id)
+        else:
+            context = {'form': form}
+            return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
+
