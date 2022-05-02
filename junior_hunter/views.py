@@ -230,3 +230,10 @@ class MyCompanyCreateVacancy(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
 
+
+class MyCompanyLetsStart(LoginRequiredMixin, TemplateView):
+    template_name = 'junior_hunter/my-company-letsstart.html'
+
+
+class SendView(LoginRequiredMixin, TemplateView):
+    template_name = 'junior_hunter/sent.html'
