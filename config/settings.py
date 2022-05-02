@@ -14,6 +14,7 @@ from pathlib import Path
 
 import yaml
 import environ
+from django.urls import reverse_lazy
 
 env = environ.Env()
 
@@ -145,4 +146,5 @@ MEDIA_COMPANY_IMAGE_DIR = 'company_images'
 MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = reverse_lazy('login')
 

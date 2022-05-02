@@ -1,5 +1,6 @@
 import datetime
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import PermissionDenied
 from django.db.models import Count
@@ -130,16 +131,15 @@ class CompanyView(ListView):
         return filtered_queryset
 
 
-# TODO добавить проверку аутентицикации
+# TODO вынести нечто общее в MyCompanyBase, как минимум LoginRequiredMixin
 # TODO поробовать упростить  https://www.agiliq.com/blog/2019/01/django-createview/
 # TODO в зависимости от того есть компания или нет отображать или нет боковое меню
-class MyCompanyView(View):
+class MyCompanyView(LoginRequiredMixin, View):
     def get(self, request):
-
         # TODO частичное дублирование код, возможно лучше создать get_object_or_none в менеджере объектов
             # https: // overcoder.net / q / 864 / django - получить - объект - из - бд - или - none - если - ничего - не - найдено
         try:
-            company = Company.objects.get(owner_id=request.user.id)  # TODO проверка аутентификации здесь очень нужна
+            company = Company.objects.get(owner_id=request.user.id)
         except ObjectDoesNotExist:
             return redirect('mycompany_letsstart')
 
@@ -168,25 +168,26 @@ class MyCompanyCreateView(MyCompanyView):
         return render(request, 'junior_hunter/my-company-create.html', context)
 
 
-class MyCompanyVacancies(ListView):
+class MyCompanyVacancies(LoginRequiredMixin, ListView):
     template_name = 'junior_hunter/my-company-vacancy-list.html'
     model = Vacancy
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.company = None
+        self.user_id = None
 
     def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        self.company = get_object_or_404(Company, owner=request.user.id)
+        self.user_id = request.user.id
+        return super().setup(request, *args, **kwargs)
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        filtered_queryset = queryset.filter(company_id=self.company.id)
+        company = get_object_or_404(Company, owner=self.user_id)
+        filtered_queryset = queryset.filter(company_id=company.id)
         return filtered_queryset
 
 
-class MyCompanyEditVacancy(View):
+class MyCompanyEditVacancy(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         vacancy_id = kwargs['vacancy_id']
         vacancy = get_object_or_404(Vacancy, id=vacancy_id)
@@ -210,7 +211,7 @@ class MyCompanyEditVacancy(View):
         return redirect('mycompany_vacancy_edit', vacancy_id=vacancy_id)
 
 
-class MyCompanyCreateVacancy(View):
+class MyCompanyCreateVacancy(LoginRequiredMixin, View):
     # TODO дублирование MyCompanyEditVacancy
     def get(self, request, *args, **kwargs):
         vacancy_form = VacancyForm()
