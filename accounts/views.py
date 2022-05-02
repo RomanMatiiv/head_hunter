@@ -2,6 +2,7 @@ import logging
 
 from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -13,13 +14,8 @@ from accounts.forms import RegisterForm
 logger = logging.getLogger(__name__)
 
 
-# TODO переделать на RedirectView или LogoutView
-class LogoutView(View):
-    template_name = 'accounts/login.html'  # TODO посмотреть действительно ли я использую в этой вьюхе шаблон
-
-    def get(self, request, *args, **kwargs):
-        logout(request)
-        return redirect('main')
+class MyLogoutView(LogoutView):
+    next_page = reverse_lazy('main')
 
 
 # TODO попробовать переписать на CBV

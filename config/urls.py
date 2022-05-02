@@ -34,7 +34,7 @@ from junior_hunter.views import CompanyView
 from junior_hunter.views import MainPageView
 from junior_hunter.views import VacancyView
 from accounts.views import MyLoginView
-from accounts.views import LogoutView
+from accounts.views import MyLogoutView
 from accounts.views import RegisterView
 
 # TODO структурировать url
