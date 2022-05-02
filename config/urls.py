@@ -40,7 +40,13 @@ from accounts.views import RegisterView
 # TODO структурировать url
 urlpatterns = [
     path('admin/', admin.site.urls),
+
     path('', MainPageView.as_view(), name='main'),
+
+    path('login', MyLoginView.as_view(), name='login'),
+    path('register', RegisterView.as_view(), name='register'),
+    path('logout', MyLogoutView.as_view(), name='logout'),
+
     path('vacancies/', AllVacanciesView.as_view(), name='all_vacancies'),
     path('vacancies/<int:vacancy_id>', VacancyView.as_view(), name='vacancy'),
     path('vacancies/cat/<str:category>', CategoryVacancyView.as_view(), name='category_vacancies'),
@@ -56,10 +62,6 @@ urlpatterns = [
     path('mycompany/vacancies/edit/<int:vacancy_id>', MyCompanyEditVacancy.as_view(), name='mycompany_vacancy_edit'),
     path('mycompany/vacancies/create/', MyCompanyCreateVacancy.as_view(), name='mycompany_vacancy_create'),
 
-# path('mycompany/vacancies/<int:vacancy_id>',, name= ),
-    path('login', MyLoginView.as_view(), name='login'),
-    path('register', RegisterView.as_view(), name='register'),
-    path('logout', LogoutView.as_view(), name='logout'),
 
 ]
 
