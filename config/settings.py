@@ -147,4 +147,3 @@ MEDIA_SPECIALITY_IMAGE_DIR = 'speciality_images'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = reverse_lazy('login')
-

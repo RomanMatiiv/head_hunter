@@ -17,27 +17,26 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from django.views.generic import TemplateView
 
+from accounts.views import MyLoginView
+from accounts.views import MyLogoutView
+from accounts.views import RegisterView
 from config.error_handlers import custom_handler400
 from config.error_handlers import custom_handler403
 from config.error_handlers import custom_handler404
 from config.error_handlers import custom_handler500
 from junior_hunter.views import AllVacanciesView
-from junior_hunter.views import MyCompanyLetsStart
-from junior_hunter.views import SendView
-from junior_hunter.views import MyCompanyEditVacancy
-from junior_hunter.views import MyCompanyCreateVacancy
-from junior_hunter.views import MyCompanyVacancies
-from junior_hunter.views import MyCompanyView
-from junior_hunter.views import MyCompanyCreateView
 from junior_hunter.views import CategoryVacancyView
 from junior_hunter.views import CompanyView
 from junior_hunter.views import MainPageView
+from junior_hunter.views import MyCompanyCreateVacancy
+from junior_hunter.views import MyCompanyCreateView
+from junior_hunter.views import MyCompanyEditVacancy
+from junior_hunter.views import MyCompanyLetsStart
+from junior_hunter.views import MyCompanyVacancies
+from junior_hunter.views import MyCompanyView
+from junior_hunter.views import SendView
 from junior_hunter.views import VacancyView
-from accounts.views import MyLoginView
-from accounts.views import MyLogoutView
-from accounts.views import RegisterView
 
 # TODO структурировать url
 urlpatterns = [
