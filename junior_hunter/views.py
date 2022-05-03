@@ -50,7 +50,8 @@ class VacancyView(DetailView):
         form = ApplicationForm(request.POST)
 
         if not form.is_valid():
-            # TODO вот тут очень странно работает в первый раз при ошибке значение не возвращяет, тк в методе get форма то не передается
+            # TODO вот тут очень странно работает в первый раз при ошибке значение не возвращяет,
+            #  тк в методе get форма то не передается
             context = {'form': form,
                        'object': self.get_object()}
             return render(request, self.template_name, context)
@@ -141,7 +142,6 @@ class CompanyView(ListView):
 class MyCompanyView(LoginRequiredMixin, View):
     def get(self, request):
         # TODO частичное дублирование код, возможно лучше создать get_object_or_none в менеджере объектов
-            # https: // overcoder.net / q / 864 / django - получить - объект - из - бд - или - none - если - ничего - не - найдено
         try:
             company = Company.objects.get(owner_id=request.user.id)
         except ObjectDoesNotExist:
