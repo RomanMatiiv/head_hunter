@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.exceptions import PermissionDenied
+from django.db import IntegrityError
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
@@ -22,6 +23,8 @@ from junior_hunter.models import Application
 from junior_hunter.models import Company
 from junior_hunter.models import Specialty
 from junior_hunter.models import Vacancy
+
+from config.error_handlers import HttpResponseConflict
 
 
 class MainPageView(TemplateView):
@@ -46,8 +49,6 @@ class VacancyView(DetailView):
     slug_field = 'id'
     slug_url_kwarg = 'vacancy_id'
 
-    # @login_required
-    # не работает см https://stackoverflow.com/questions/68810221/
     def post(self, request, *args, **kwargs):
         form = ApplicationForm(request.POST)
 
