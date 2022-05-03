@@ -53,9 +53,10 @@ class VacancyView(DetailView):
         form = ApplicationForm(request.POST)
 
         if not form.is_valid():
-            pass
-            # TODO бобавть обработку неправильно заполненной формы
-            # TODO бобавть обработку если на вакансию уже откликнулись
+            # TODO вот тут очень странно работает в первый раз при ошибке значение не возвращяет, тк в методе get форма то не передается
+            context = {'form': form,
+                       'object': self.get_object()}
+            return render(request, self.template_name, context)
 
         data = form.cleaned_data
 
