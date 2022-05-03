@@ -18,12 +18,6 @@ class RegisterForm(UserCreationForm):
         labels = {'username': 'Логин'}
 
 
-# class MyAuthenticationForm(AuthenticationForm):
-#     username = UsernameField(
-#         label='Логин',
-#         widget=forms.TextInput(attrs={'autofocus': True})
-#     )
-
 class MyCompanyForm(forms.ModelForm):
 
     class Meta:

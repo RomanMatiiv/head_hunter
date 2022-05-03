@@ -204,7 +204,7 @@ class MyCompanyEditVacancy(LoginRequiredMixin, View):
                    }
         return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
 
-    def post(self, request,*args, **kwargs):
+    def post(self, request, *args, **kwargs):
         # TODO дублирование тоже что и в get
         vacancy_id = kwargs['vacancy_id']
         vacancy = get_object_or_404(Vacancy, id=vacancy_id)
@@ -223,7 +223,7 @@ class MyCompanyCreateVacancy(LoginRequiredMixin, View):
         context = {'form': vacancy_form}
         return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
 
-    def post(self, request,*args, **kwargs):
+    def post(self, request, *args, **kwargs):
         form = VacancyForm(data=request.POST, files=request.FILES)
         form.instance.company = get_object_or_404(Company, owner=request.user.id)
         form.instance.published_at = datetime.datetime.now()

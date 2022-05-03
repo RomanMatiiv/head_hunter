@@ -65,4 +65,4 @@ class Application(models.Model):
     user = ForeignKey(User, related_name='applications', on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('vacancy', 'user',)
+        unique_together = ('vacancy', 'user')
