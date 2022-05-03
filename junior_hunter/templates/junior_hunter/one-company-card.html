@@ -14,19 +14,8 @@
       <form enctype="multipart/form-data" method="post">
       {% csrf_token %}
 
-                      <!-- печать ошибок -->
-            {% for error in form.non_field_errors %}
-                <div class="alert alert-danger" role="alert">
-                    {{ error }}
-                </div>
-            {% endfor %}
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger" role="alert">
-                      {{ field.name }} {{ error }}
-                    </div>
-                {% endfor %}
-            {% endfor %}
+        <!-- печать ошибок -->
+        {% include 'junior_hunter/error-in-forms.html' %}
 
         <div class="row">
 

@@ -25,6 +25,10 @@
 
           <form class="card mt-4 mb-3" enctype="multipart/form-data" method="post">
             {% csrf_token %}
+
+            <!-- печать ошибок -->
+            {% include 'junior_hunter/error-in-forms.html' %}
+
             <div class="card-body mx-3">
               <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
               <div class="form-group">
