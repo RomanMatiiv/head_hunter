@@ -33,11 +33,11 @@
               <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
               <div class="form-group">
                 <label class="mb-1 mt-2" for="userName">Вас зовут</label>
-                <input name="written_username" class="form-control" type="text" placeholder="" id="userName">
+                <input name="{{ form.written_username.name }}" value="{{ form.written_username.value|default:'' }}" class="form-control" type="text" placeholder="" id="userName">
               </div>
               <div class="form-group">
                 <label class="mb-1" for="userPhone">Ваш телефон</label>
-                <input name="written_phone" class="form-control" type="tel" placeholder="" id="userPhone">
+                <input name="{{ form.written_phone.name }}" value="{{ form.written_phone.value|default:'' }}"class="form-control" type="tel" placeholder="" id="userPhone">
               </div>
               <div class="form-group">
                 <label class="mb-1" for="userMsg" >Сопроводительное письмо</label>

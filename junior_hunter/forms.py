@@ -25,5 +25,5 @@ class VacancyForm(ModelForm):
             'salary_min',
             'salary_max',
             'skills',
-            'description',
+            'description',  # TODO вот здесь нужно как-то от html код превратить в текст
         )

@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import CharField
-from django.db.models import ImageField
-from django.db.models import OneToOneField
 from django.db.models import DateTimeField
 from django.db.models import ForeignKey
+from django.db.models import ImageField
 from django.db.models import IntegerField
+from django.db.models import OneToOneField
 from django.db.models import TextField
 
 from config.settings import MEDIA_COMPANY_IMAGE_DIR
