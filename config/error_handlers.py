@@ -1,7 +1,12 @@
+from django.http import HttpResponse
 from django.http import HttpResponseBadRequest
-from django.http import HttpResponseNotFound
 from django.http import HttpResponseForbidden
+from django.http import HttpResponseNotFound
 from django.http import HttpResponseServerError
+
+
+class HttpResponseConflict(HttpResponse):
+    status_code = 409
 
 
 def custom_handler400(request, exception):

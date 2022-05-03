@@ -71,7 +71,12 @@ class VacancyView(DetailView):
             vacancy=vacancy,
             user=user,
         )
-        application.save()
+
+        try:
+            application.save()
+        except IntegrityError:
+            return HttpResponseConflict(f'Пользователь {user.username}, id={user.id} уже откликался на данную вакансию')
+
         return redirect('sent')
 
 
