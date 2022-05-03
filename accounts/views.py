@@ -1,14 +1,11 @@
 import logging
 
-from django.contrib.auth import logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
-from django.shortcuts import redirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
 
-# from accounts.forms import MyAuthenticationForm
 from accounts.forms import RegisterForm
 
 logger = logging.getLogger(__name__)
