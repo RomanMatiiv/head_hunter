@@ -15,6 +15,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView
 
 from accounts.forms import MyCompanyForm
+from config import settings
 from junior_hunter.forms import ApplicationForm
 from junior_hunter.forms import VacancyForm
 from junior_hunter.models import Application
@@ -62,10 +63,6 @@ class VacancyView(DetailView):
         written_cover_letter = data['written_cover_letter']
         vacancy = self.get_object()
         user = request.user
-
-        # TODO сделать нормально без костылей
-        if user.is_anonymous:
-            raise PermissionDenied
 
         application = Application(
             written_username=written_username,
