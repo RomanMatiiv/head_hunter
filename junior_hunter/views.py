@@ -234,6 +234,7 @@ class MyCompanyCreateVacancy(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
 
+# TODO добавить view для просмотра вакансии
 
 class MyCompanyLetsStart(LoginRequiredMixin, TemplateView):
     template_name = 'junior_hunter/my-company-letsstart.html'
