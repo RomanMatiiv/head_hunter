@@ -61,11 +61,10 @@ urlpatterns = [
     path('mycompany/vacancies/', MyCompanyVacancies.as_view(), name='mycompany_vacancies'),
     path('mycompany/vacancies/edit/<int:vacancy_id>', MyCompanyEditVacancy.as_view(), name='mycompany_vacancy_edit'),
     path('mycompany/vacancies/create/', MyCompanyCreateVacancy.as_view(), name='mycompany_vacancy_create'),
-
-
 ]
 
-# TODO разобрать что это и как работает
+
+# TODO разобрать как это работает
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)
