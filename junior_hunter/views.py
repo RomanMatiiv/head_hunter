@@ -110,30 +110,15 @@ class CategoryVacancyView(ListView):
         return filtered_queryset
 
 
-# TODO переделать на DetailView
-class CompanyView(ListView):
-    """Карточка компании"""
+class CompanyView(DetailView):
     template_name = 'junior_hunter/companies/company.html'
-    model = Vacancy
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.company = None
-
-    def setup(self, request, *args, **kwargs):
-        super().setup(request, *args, **kwargs)
-        company_id = kwargs['company_id']
-        self.company = get_object_or_404(Company, id=company_id)
+    model = Company
+    pk_url_kwarg = 'company_id'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['company'] = self.company
+        context['vacancies'] = Vacancy.objects.filter(company_id=self.object.id)
         return context
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        filtered_queryset = queryset.filter(company__id=self.company.id)
-        return filtered_queryset
 
 
 # TODO вынести нечто общее в MyCompanyBase, как минимум LoginRequiredMixin
