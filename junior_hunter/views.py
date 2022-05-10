@@ -41,7 +41,7 @@ class MainPageView(TemplateView):
 @method_decorator(login_required, name='post')
 class VacancyView(DetailView):
     """ Одна вакансия"""
-    template_name = 'junior_hunter/vacancy.html'
+    template_name = 'junior_hunter/vacancies/vacancy.html'
     model = Vacancy
     slug_field = 'id'
     slug_url_kwarg = 'vacancy_id'
@@ -81,13 +81,13 @@ class VacancyView(DetailView):
 
 
 class AllVacanciesView(ListView):
-    template_name = 'junior_hunter/vacancies.html'
+    template_name = 'junior_hunter/vacancies/vacancies.html'
     model = Vacancy
 
 
 class CategoryVacancyView(ListView):
     """ Вакансии по специализации """
-    template_name = 'junior_hunter/vacancies.html'
+    template_name = 'junior_hunter/vacancies/vacancies.html'
     model = Vacancy
 
     def __init__(self, *args, **kwargs):
@@ -113,7 +113,7 @@ class CategoryVacancyView(ListView):
 # TODO переделать на DetailView
 class CompanyView(ListView):
     """Карточка компании"""
-    template_name = 'junior_hunter/company.html'
+    template_name = 'junior_hunter/companies/company.html'
     model = Vacancy
 
     def __init__(self, *args, **kwargs):
@@ -150,7 +150,7 @@ class MyCompanyView(LoginRequiredMixin, View):
         my_company = MyCompanyForm(instance=company)
 
         context = {'form': my_company}
-        return render(request, 'junior_hunter/my-company-edit.html', context)
+        return render(request, 'junior_hunter/mycompany/edit.html', context)
 
     def post(self, request):
         # TODO частичное дублирование код, возможно лучше создать get_object_or_none в менеджере объектов
@@ -169,11 +169,11 @@ class MyCompanyView(LoginRequiredMixin, View):
 class MyCompanyCreateView(MyCompanyView):
     def get(self, request):
         context = {'form': MyCompanyForm}
-        return render(request, 'junior_hunter/my-company-create.html', context)
+        return render(request, 'junior_hunter/mycompany/create.html', context)
 
 
 class MyCompanyVacancies(LoginRequiredMixin, ListView):
-    template_name = 'junior_hunter/my-company-vacancy-list.html'
+    template_name = 'junior_hunter/mycompany/vacancy_list.html'
     model = Vacancy
 
     def __init__(self, *args, **kwargs):
@@ -202,7 +202,7 @@ class MyCompanyEditVacancy(LoginRequiredMixin, View):
         context = {'form': vacancy_form,
                    'applications': vacancy_application,
                    }
-        return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
+        return render(request, 'junior_hunter/mycompany/vacancy_edit.html', context)
 
     def post(self, request, *args, **kwargs):
         # TODO дублирование тоже что и в get
@@ -221,7 +221,7 @@ class MyCompanyCreateVacancy(LoginRequiredMixin, View):
         vacancy_form = VacancyForm()
 
         context = {'form': vacancy_form}
-        return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
+        return render(request, 'junior_hunter/mycompany/vacancy_edit.html', context)
 
     def post(self, request, *args, **kwargs):
         form = VacancyForm(data=request.POST, files=request.FILES)
@@ -232,13 +232,15 @@ class MyCompanyCreateVacancy(LoginRequiredMixin, View):
             return redirect('mycompany_vacancy_edit', vacancy_id=created_vacancy.id)
         else:
             context = {'form': form}
-            return render(request, 'junior_hunter/my-company-vacancy-edit.html', context)
+            return render(request, 'junior_hunter/mycompany/vacancy_edit.html', context)
+
 
 # TODO добавить view для просмотра вакансии
 
+
 class MyCompanyLetsStart(LoginRequiredMixin, TemplateView):
-    template_name = 'junior_hunter/my-company-letsstart.html'
+    template_name = 'junior_hunter/mycompany/letsstart.html'
 
 
 class SendView(LoginRequiredMixin, TemplateView):
-    template_name = 'junior_hunter/sent.html'
+    template_name = 'junior_hunter/vacancies/sent.html'
