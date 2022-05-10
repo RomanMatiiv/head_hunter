@@ -43,8 +43,7 @@ class VacancyView(DetailView):
     """ Одна вакансия"""
     template_name = 'junior_hunter/vacancies/vacancy.html'
     model = Vacancy
-    slug_field = 'id'
-    slug_url_kwarg = 'vacancy_id'
+    pk_url_kwarg = 'vacancy_id'
 
     def post(self, request, *args, **kwargs):
         form = ApplicationForm(request.POST)
