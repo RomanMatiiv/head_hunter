@@ -1,5 +1,7 @@
 {% extends 'junior_hunter/base.html' %}
 
+{% load filters %}
+
 
 {% block main %}
 
@@ -31,7 +33,8 @@
                       <a href="#" class="mb-1">{{ cur_vacancy.title }}</a> <!-- TODO добавить view для просмотра вакансии -->
 
                       <p class="mb-1">
-                        <span class="mr-4">{{ cur_vacancy.salary_min }}</span><a href="#" class="text-info">{{ cur_vacancy.applications.count }} отклика</a> <!-- TODO добавить фильтры -->
+                        <span class="mr-4">{{ cur_vacancy.salary_min }}</span><br>
+                        <a href="#" class="text-info">{{ cur_vacancy.applications.count }} {{ cur_vacancy.applications.count|rupluralize:"отклик,отклика,откликов" }}</a>
                       </p>
                     </div>
                     <div class="col-6 col-lg-4 text-right">
